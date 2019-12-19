@@ -44,7 +44,7 @@ namespace CSharpDB.Pages
             }
         }
 
-        string path1 = "/CSharpDB/Docs/mysql.xaml";
+        string path1 = "../../Docs/mysql.xaml";
 
         private void button1Load_Click(object sender, RoutedEventArgs e)
         {
