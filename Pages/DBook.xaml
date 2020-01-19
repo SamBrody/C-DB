@@ -22,6 +22,22 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Style x:Key="ButtonStyle1">
+            <Setter Property="Button.BorderBrush" Value="{x:Null}"/>
+            <Setter Property="Button.Background" Value="#FF202022"/>
+            <Setter Property="Button.Margin" Value="0,0,0,5"/>
+        </Style>
+        <Style x:Key="LabelStyle1">
+            <Setter Property="Label.Width" Value="169"/>
+            <Setter Property="Label.Foreground" Value="#FFC5C5C5"/>
+            <Setter Property="Label.FontSize" Value="11"/>
+            <Setter Property="Label.HorizontalAlignment" Value="Left"/>
+            <Setter Property="Label.VerticalAlignment" Value="Stretch"/>
+        </Style>
+        <Style x:Key="TextBlockStyle1">
+            <Setter Property="TextBlock.Margin" Value="20 10"/>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+        </Style>
     </Page.Resources>
 
     <Page.Triggers>
@@ -62,17 +78,17 @@
                 <Grid Grid.Column="0" Grid.Row="0">
                     <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
                         <Label Content="Темы" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="20" Foreground="#FFC5C5C5"/>
-                        <Button x:Name="button1Load" Click="button1Load_Click" BorderBrush="{x:Null}" Background="#FF202022" Margin="0,0,0,5">
-                            <Label  Content="1. MySQL" Width="169" Foreground="#FFC5C5C5" FontSize="11" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                        <Button x:Name="button1Load" Click="button1Load_Click" Style="{StaticResource ButtonStyle1}">
+                            <Label  Content="1. MySQL" Style="{StaticResource LabelStyle1}"/>
                         </Button>
-                        <Button BorderBrush="{x:Null}" Background="#FF202022" Margin="0,0,0,5">
-                            <Label  Content="2." Width="169" Foreground="#FFC5C5C5" FontSize="11" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                        <Button  Style="{StaticResource ButtonStyle1}">
+                            <Label  Content="2." Style="{StaticResource LabelStyle1}"/>
                         </Button>
-                        <Button BorderBrush="{x:Null}" Background="#FF202022" Margin="0,0,0,5">
-                            <Label  Content="3." Width="169" Foreground="#FFC5C5C5" FontSize="11" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                        <Button Style="{StaticResource ButtonStyle1}">
+                            <Label  Content="3." Style="{StaticResource LabelStyle1}"/>
                         </Button>
-                        <Button BorderBrush="{x:Null}" Background="#FF202022" Margin="0,0,0,5">
-                            <Label  Content="4." Width="169" Foreground="#FFC5C5C5" FontSize="11" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+                        <Button Style="{StaticResource ButtonStyle1}">
+                            <Label  Content="4." Style="{StaticResource LabelStyle1}"/>
                         </Button>
                     </StackPanel>
                 </Grid>
@@ -95,25 +111,19 @@
                     <ListViewItem Height="60" x:Name="ListViewHome">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Home" Width="25" Margin="10" VerticalAlignment="Center"/>
-                            <TextBlock Text="Главная" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Главная" Style="{StaticResource TextBlockStyle1}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="ListViewTheory">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BookOpenOutline" Width="25" Margin="10" VerticalAlignment="Center"/>
-                            <TextBlock Text="Теория" VerticalAlignment="Center" Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem Height="60" x:Name="ListViewTasks">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Assignment" Width="25" Margin="10" VerticalAlignment="Center"/>
-                            <TextBlock Text="Задания" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Теория" Style="{StaticResource TextBlockStyle1}"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="ListViewTest">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CheckBox" Width="25" Margin="10" VerticalAlignment="Center"/>
-                            <TextBlock Text="Тестирование" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Тестирование" Style="{StaticResource TextBlockStyle1}"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
