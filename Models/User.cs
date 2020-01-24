@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace CSharpDB.Models
 {
@@ -17,6 +18,9 @@ namespace CSharpDB.Models
         public string Login { get; set; }
         [Required]
         public string Password { get; set; }
+        public int IDRole { get; set; }
+        [DefaultValue("student")]
+        public virtual Role Role { get; set; }
 
         public UserProfile UserProfile { get; set; }
     }

@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CSharpDB.Models
 {
-    public class Grade
+    public class Question
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDGrade { get; set; }
-        [Required]
-        public string GradeName { get; set; }
+        public int IDQuestion { get; set; }
+
     }
 }

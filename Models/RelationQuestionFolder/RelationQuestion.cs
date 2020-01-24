@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpDB.Models
+namespace CSharpDB.Models.RelationQuestionFolder
 {
-    public class Role
+    public class RelationQuestion
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDRole { get; set; }
+        public int IDRelationQuestion { get; set; }
         [Required]
-        public string RoleName { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        public string Group { get; set; }
+
+        public virtual ICollection<RelationTask> RelationTasks { get; set; }
     }
 }

@@ -16,6 +16,6 @@ namespace CSharpDB.Models
         [Required]
         public string GroupName { get; set; }
 
-        public virtual ICollection<Student> Student{ get; set; }
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

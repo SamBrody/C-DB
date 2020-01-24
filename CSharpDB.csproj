@@ -127,6 +127,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Context\DBbCshContext.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -137,10 +138,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Grade.cs" />
+    <Compile Include="Models\ChooseQuestionFolder\ChooseAnswer.cs" />
+    <Compile Include="Models\ChooseQuestionFolder\ChooseQuestion.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\InputQuestionFolder\InputAnswer.cs" />
+    <Compile Include="Models\InputQuestionFolder\InputQuestion.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\RelationQuestionFolder\RelationAnswer.cs" />
+    <Compile Include="Models\RelationQuestionFolder\RelationQuestion.cs" />
+    <Compile Include="Models\RelationQuestionFolder\RelationTask.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserProfile.cs" />
@@ -173,9 +180,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Context\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="cshDB.ico" />
   </ItemGroup>
