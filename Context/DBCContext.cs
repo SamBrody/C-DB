@@ -1,4 +1,4 @@
-﻿using CSharpDB.Models;
+﻿using CSharpDB.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Context
 {
-    class DBbCshContext : DbContext
+    class DBCContext : DbContext
     {
-        public DBbCshContext(): base("DBbCshContext")
+        public DBCContext(): base("DBbCshContext")
         {
         }
 

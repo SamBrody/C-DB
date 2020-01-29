@@ -1,15 +1,14 @@
-﻿<Page x:Class="CSharpDB.Pages.DBook"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-      xmlns:local="clr-namespace:CSharpDB.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="DBook">
+﻿<Window x:Class="CSharpDB.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CSharpDB"
+        mc:Ignorable="d"
+        Title="DBbyC#" MouseLeftButtonDown="Window_MouseLeftButtonDown"  MinWidth="1000" MinHeight="600" Height="768" Width="1024" Background="#FF2C2E36"  WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
 
-    <Page.Resources>
+    <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
@@ -38,18 +37,18 @@
             <Setter Property="TextBlock.Margin" Value="20 10"/>
             <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         </Style>
-    </Page.Resources>
+    </Window.Resources>
 
-    <Page.Triggers>
+    <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
             <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
         </EventTrigger>
-    </Page.Triggers>
-
-    <Grid Background="#FF2C2E36">
+    </Window.Triggers>
+    
+    <Grid>
         <Grid Height="50" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Background="#FF41444F">
             <TextBlock Foreground="#FFC5C5C5" Text="DBbyC#" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center"/>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" >
@@ -65,38 +64,9 @@
                 </materialDesign:PopupBox>
             </StackPanel>
         </Grid>
-        <Grid x:Name="spTheory" Margin="60,50,0,0" HorizontalAlignment="Stretch" Visibility="Visible">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="200" Width="0.3*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <GridSplitter Opacity="100" Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="5" Background="#FF41444F"/>
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
-                        <Label Content="Темы" VerticalAlignment="Stretch" HorizontalAlignment="Center" FontSize="20" Foreground="#FFC5C5C5"/>
-                        <Button x:Name="button1Load" Click="button1Load_Click" Style="{StaticResource ButtonStyle1}">
-                            <Label  Content="1. MySQL" Style="{StaticResource LabelStyle1}"/>
-                        </Button>
-                        <Button  Style="{StaticResource ButtonStyle1}">
-                            <Label  Content="2." Style="{StaticResource LabelStyle1}"/>
-                        </Button>
-                        <Button Style="{StaticResource ButtonStyle1}">
-                            <Label  Content="3." Style="{StaticResource LabelStyle1}"/>
-                        </Button>
-                        <Button Style="{StaticResource ButtonStyle1}">
-                            <Label  Content="4." Style="{StaticResource LabelStyle1}"/>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Column="1" Grid.Row="0">
-                    <FlowDocumentScrollViewer Name="docViewer" Foreground="#FFC5C5C5" IsToolBarVisible="True" Margin="0,0,0,0" Background="#FF41444F"/>
-                </Grid>
-            </Grid>
-        </Grid>
+        <Frame Margin="60,50,0,0" Source="DBook.xaml"> 
+            
+        </Frame>
         <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Grid.RowSpan="2" Background="#FF41444F">
             <StackPanel>
                 <Grid Height="80" Background="#FF5B5E6A">
@@ -130,4 +100,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-</Page>
+</Window>

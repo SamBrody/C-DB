@@ -119,7 +119,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -127,31 +127,33 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Context\DBbCshContext.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Context\DBCContext.cs" />
+    <Compile Include="Model\QuestionGroup.cs" />
+    <Compile Include="Model\QuestionList.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\DBook.xaml">
+    <Page Include="View\DBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ChooseQuestionFolder\ChooseAnswer.cs" />
-    <Compile Include="Models\ChooseQuestionFolder\ChooseQuestion.cs" />
-    <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\InputQuestionFolder\InputAnswer.cs" />
-    <Compile Include="Models\InputQuestionFolder\InputQuestion.cs" />
-    <Compile Include="Models\Question.cs" />
-    <Compile Include="Models\RelationQuestionFolder\RelationAnswer.cs" />
-    <Compile Include="Models\RelationQuestionFolder\RelationQuestion.cs" />
-    <Compile Include="Models\RelationQuestionFolder\RelationTask.cs" />
-    <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\Test.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserProfile.cs" />
-    <Compile Include="Pages\DBook.xaml.cs">
+    <Compile Include="Model\ChooseQuestionFolder\ChooseAnswer.cs" />
+    <Compile Include="Model\ChooseQuestionFolder\ChooseQuestion.cs" />
+    <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\InputQuestionFolder\InputAnswer.cs" />
+    <Compile Include="Model\InputQuestionFolder\InputQuestion.cs" />
+    <Compile Include="Model\Question.cs" />
+    <Compile Include="Model\RelationQuestionFolder\RelationAnswer.cs" />
+    <Compile Include="Model\RelationQuestionFolder\RelationQuestion.cs" />
+    <Compile Include="Model\RelationQuestionFolder\RelationTask.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\Test.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserProfile.cs" />
+    <Compile Include="View\DBook.xaml.cs">
       <DependentUpon>DBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -180,7 +182,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="cshDB.ico" />
   </ItemGroup>

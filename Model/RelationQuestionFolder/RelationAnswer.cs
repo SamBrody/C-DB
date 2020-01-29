@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpDB.Models.RelationQuestionFolder
+namespace CSharpDB.Model.RelationQuestionFolder
 {
     public class RelationAnswer
     {

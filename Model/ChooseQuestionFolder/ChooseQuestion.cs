@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpDB.Models.InputQuestionFolder
+namespace CSharpDB.Model.ChooseQuestionFolder
 {
-    public class InputQuestion
+    public class ChooseQuestion
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDInputQuestion { get; set; }
+        public int IDChooseQuestion { get; set; }
         [Required]
         public string TaskText { get; set; }
 
-        public virtual ICollection<InputAnswer> InputAnswers { get; set; }
+        public virtual ICollection<ChooseAnswer> ChooseAnswers { get;  }
     }
 }
