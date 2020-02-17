@@ -14,19 +14,10 @@ namespace CSharpDB.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDGroup
-        {
-            get; set;
-        }
+        public int IDGroup { get; set; }
         [Required]
-        public string GroupName
-        {
-            get; set;
-        }
+        public string GroupName { get; set; }
 
-        public virtual ICollection<UserProfile> UserProfiles 
-        {
-            get;
-        }
+        public virtual ICollection<UserProfile> UserProfiles { get;}
     }
 }

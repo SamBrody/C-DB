@@ -1,5 +1,4 @@
-﻿using CSharpDB.Model.RelationQuestionFolder;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -11,23 +10,13 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class QuestionGroup 
+    public class QuestionType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDQuestionGroup
-        {
-            get; set;
-        }
-        [Required]
-        public string QGroupName
-        {
-            get; set;
-        }
+        public int IDQuestionType { get; set; }
+        public string TextType { get; set; }
 
-        public virtual ICollection<RelationQuestion> RelationQuestions
-        {
-            get;
-        }
+        public virtual ICollection<Question> Questions {get;}
     }
 }

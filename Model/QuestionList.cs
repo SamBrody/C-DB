@@ -12,36 +12,13 @@ namespace CSharpDB.Model
 {
     public class QuestionList 
     {
-        private int idqlist;
-        private string questionlistname;
-        private ICollection<Question> questions;
-        private int idtest;
-        private Test test;
-
         [Key]
-        [ForeignKey("Test")]
-        public int IDQuestionList
-        {
-            get; set;
-        }
+        [ForeignKey("TestResults")]
+        public int IDTestResults { get; set; }
         [Required]
-        public string QuestionListName
-        {
-            get; set;
-        }
+        public string QuestionListName { get; set; }
+        public virtual TestResults TestResults { get; set; }
 
-        public virtual ICollection<Question> Questions
-        {
-            get { return questions; }
-        }
-
-        public int IDTest
-        {
-            get; set;
-        }
-        public Test Test
-        {
-            get; set;
-        }
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

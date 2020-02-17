@@ -13,47 +13,24 @@ namespace CSharpDB.Model
     public class UserProfile 
     {
         [Key]
-        [ForeignKey("User")]
-        public int IDUser
-        {
-            get; set;
-        }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int IDUser { get; set; }
         [Required]
-        public string FirstName
-        {
-            get; set;
-        }
-        public string MiddleName
-        {
-            get; set;
-        }
+        public string Login { get; set; }
         [Required]
-        public string LastName
-        {
-            get; set;
-        }
+        public string Password { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        [Required]
+        public string LastName { get; set; }
 
-        public int IDGroup
-        {
-            get; set;
-        }
-        public virtual Group Group
-        {
-            get; set;
-        }
+        public int IDGroup { get; set; }
+        public virtual Group Group { get; set; }
 
-        public int IDTest
-        {
-            get; set;
-        }
-        public virtual Test Test
-        {
-            get; set;
-        }
+        public virtual ICollection<TestResults> TestResults { get; }
 
-        public User User
-        {
-            get; set;
-        }
+        public int IDRole { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

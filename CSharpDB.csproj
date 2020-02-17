@@ -64,11 +64,11 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignThemes.3.0.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>packages\MySql.Data.8.0.18\lib\net452\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.8.0.19\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>packages\MySql.Data.Entity.6.10.9\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.EntityFramework.8.0.19\lib\net452\MySql.Data.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
@@ -106,6 +106,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.8.0.19\lib\net452\Ubiety.Dns.Core.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -129,8 +132,10 @@
     </Compile>
     <Compile Include="Context\DBCContext.cs" />
     <Compile Include="Model\Grade.cs" />
-    <Compile Include="Model\QuestionGroup.cs" />
+    <Compile Include="Model\Question.cs" />
     <Compile Include="Model\QuestionList.cs" />
+    <Compile Include="Model\Test.cs" />
+    <Compile Include="Model\Theme.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -141,18 +146,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ChooseQuestionFolder\ChooseAnswer.cs" />
-    <Compile Include="Model\ChooseQuestionFolder\ChooseQuestion.cs" />
+    <Compile Include="Model\ChooseAnswer.cs" />
     <Compile Include="Model\Group.cs" />
-    <Compile Include="Model\InputQuestionFolder\InputAnswer.cs" />
-    <Compile Include="Model\InputQuestionFolder\InputQuestion.cs" />
-    <Compile Include="Model\Question.cs" />
-    <Compile Include="Model\RelationQuestionFolder\RelationAnswer.cs" />
-    <Compile Include="Model\RelationQuestionFolder\RelationQuestion.cs" />
-    <Compile Include="Model\RelationQuestionFolder\RelationTask.cs" />
+    <Compile Include="Model\InputAnswer.cs" />
+    <Compile Include="Model\QuestionType.cs" />
+    <Compile Include="Model\RelationSecondHalf.cs" />
+    <Compile Include="Model\RelationFirstHalf.cs" />
     <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\Test.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\TestResults.cs" />
     <Compile Include="Model\UserProfile.cs" />
     <Compile Include="View\DBook.xaml.cs">
       <DependentUpon>DBook.xaml</DependentUpon>
@@ -183,9 +184,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="cshDB.ico" />
   </ItemGroup>

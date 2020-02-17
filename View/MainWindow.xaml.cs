@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpDB.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace CSharpDB
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

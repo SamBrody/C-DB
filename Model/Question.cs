@@ -1,63 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using CSharpDB.Model.ChooseQuestionFolder;
-using CSharpDB.Model.InputQuestionFolder;
-using CSharpDB.Model.RelationQuestionFolder;
 
 namespace CSharpDB.Model
 {
-    public class Question 
+    public class Question
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDQuestion 
-        {
-            get;set;
-        }
+        public int IDQuestion { get; set; }
+        public string TaskText { get; set; }
 
-        public int IDChooseQuestion
-        {
-            get; set;
-        }
-        public virtual ChooseQuestion ChooseQuestion
-        {
-            get; set;
-        }
-        public int IDInputQuestion
-        {
-            get; set;
-        }
-        public virtual InputQuestion InputQuestion
-        {
-            get; set;
-        }
-        public int IDRelationTask
-        {
-            get; set;
-        }
-        public virtual RelationTask RelationTask
-        {
-            get; set;
-        }
-        public int IDQuestionList
-        {
-            get { return idquestionlist; }
-            set
-            {
-                idquestionlist = value;
-                OnPropertyChanged("IDQuestionList");
-            }
-        }
-        public virtual QuestionList QuestionList
-        {
-            get; set;
-        }
+        public int IDQType { get; set; }
+        public virtual QuestionType QuestionType { get; set; }
+
+        public virtual ICollection<ChooseAnswer> ChooseAnswers { get; }
+        public virtual ICollection<RelationFirstHalf> RelationQuestions { get;}
+        public virtual ICollection<InputAnswer> InputAnswers { get;}
+
+        public int IDQuestionList { get; set; }
+        public virtual QuestionList QuestionList { get; set; }
+
+        public int IDTheme { get; set; }
+        public virtual Theme Theme { get; set; }
+
+        public int IDTest { get; set; }
+        public virtual Test Test { get; set; }
     }
 }
