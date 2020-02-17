@@ -10,65 +10,38 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class QuestionList : INotifyPropertyChanged
+    public class QuestionList 
     {
         private int idqlist;
         private string questionlistname;
-        private ICollection<Question> qustions;
+        private ICollection<Question> questions;
         private int idtest;
         private Test test;
 
         [Key]
         [ForeignKey("Test")]
-        public int IDQuestionList 
+        public int IDQuestionList
         {
-            get { return idqlist; }
-            set 
-            {
-                idqlist = value;
-                OnPropertyChanged("IDQuestionList");
-            }
+            get; set;
         }
         [Required]
-        public string QuestionListName 
+        public string QuestionListName
         {
-            get { return questionlistname; }
-            set
-            {
-                questionlistname = value;
-                OnPropertyChanged("QuestionListName");
-            }
+            get; set;
         }
-        
-        public virtual ICollection<Question> Questions 
+
+        public virtual ICollection<Question> Questions
         {
-            get { return qustions; }
+            get { return questions; }
         }
 
         public int IDTest
         {
-            get { return idtest; }
-            set
-            {
-                idtest = value;
-                OnPropertyChanged("IDTest");
-            }
+            get; set;
         }
         public Test Test
         {
-            get { return test; }
-            set
-            {
-                test = value;
-                OnPropertyChanged("Test");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop="")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get; set;
         }
     }
 }

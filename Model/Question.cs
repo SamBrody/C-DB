@@ -13,108 +13,51 @@ using CSharpDB.Model.RelationQuestionFolder;
 
 namespace CSharpDB.Model
 {
-    public class Question : INotifyPropertyChanged
+    public class Question 
     {
-        private int idquestion;
-        private int idchoosequestion;
-        private ChooseQuestion choosequestion;
-        private int idinputquestion;
-        private InputQuestion inputquestion;
-        private int idrelationquestion;
-        private RelationQuestion relationquestion;
-        private int idquestionlist;
-        private QuestionList questionlist;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDQuestion 
         {
-            get { return idquestion; }
-            set
-            {
-                idquestion = value;
-                OnPropertyChanged("IDQuestion");
-            }
+            get;set;
         }
 
-        public int IDChooseQuestion 
+        public int IDChooseQuestion
         {
-            get { return idchoosequestion; }
-            set
-            {
-                idchoosequestion = value;
-                OnPropertyChanged("IDChooseQuestion");
-            }
+            get; set;
         }
         public virtual ChooseQuestion ChooseQuestion
         {
-            get { return choosequestion; }
-            set
-            {
-                choosequestion = value;
-                OnPropertyChanged("ChooseQuestion");
-            }
+            get; set;
         }
-        public int IDInputQuestion 
+        public int IDInputQuestion
         {
-            get { return idinputquestion; }
-            set
-            {
-                idinputquestion = value;
-                OnPropertyChanged("IDInputQuestion");
-            }
+            get; set;
         }
-        public virtual InputQuestion InputQuestion 
+        public virtual InputQuestion InputQuestion
         {
-            get { return inputquestion; }
-            set
-            {
-                inputquestion = value;
-                OnPropertyChanged("InputQuestion");
-            }
+            get; set;
         }
-        public int IDRelationQuestion 
+        public int IDRelationTask
         {
-            get { return idrelationquestion; }
-            set
-            {
-                idrelationquestion = value;
-                OnPropertyChanged("IDRelationQuestion");
-            }
+            get; set;
         }
-        public virtual RelationQuestion RelationQuestion
+        public virtual RelationTask RelationTask
         {
-            get { return relationquestion; }
-            set
-            {
-                relationquestion = value;
-                OnPropertyChanged("RelationQuestion");
-            }
+            get; set;
         }
-        public int IDQuestionList 
+        public int IDQuestionList
         {
-            get { return idquestion; }
+            get { return idquestionlist; }
             set
             {
-                idquestion = value;
+                idquestionlist = value;
                 OnPropertyChanged("IDQuestionList");
             }
         }
-        public virtual QuestionList QuestionList 
+        public virtual QuestionList QuestionList
         {
-            get { return questionlist; }
-            set
-            {
-                questionlist = value;
-                OnPropertyChanged("QuestionList");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get; set;
         }
     }
 }

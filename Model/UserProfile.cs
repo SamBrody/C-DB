@@ -10,101 +10,50 @@ using System.Runtime.CompilerServices;
 
 namespace CSharpDB.Model
 {
-    public class UserProfile : INotifyPropertyChanged
+    public class UserProfile 
     {
-        private int iduser;
-        private string firstname;
-        private string middlename;
-        private string lastname;
-        private int idgroup;
-        private Group group;
-        private Test test;
-        private User user;
-
         [Key]
         [ForeignKey("User")]
         public int IDUser
-        { 
-            get { return iduser; } 
-            set
-            {
-                iduser = value;
-                OnPropertyChanged("IDUser");
-            }
+        {
+            get; set;
         }
         [Required]
         public string FirstName
         {
-            get { return firstname; }
-            set
-            {
-                firstname = value;
-                OnPropertyChanged("FirstName");
-            }
+            get; set;
         }
         public string MiddleName
         {
-            get { return middlename; }
-            set
-            {
-                middlename = value;
-                OnPropertyChanged("MiddleName");
-            }
+            get; set;
         }
         [Required]
-        public string LastName 
+        public string LastName
         {
-            get { return lastname; }
-            set
-            {
-                lastname = value;
-                OnPropertyChanged("LastName");
-            }
+            get; set;
         }
 
         public int IDGroup
         {
-            get { return idgroup; }
-            set
-            {
-                idgroup = value;
-                OnPropertyChanged("IDGroup");
-            }
+            get; set;
         }
         public virtual Group Group
         {
-            get { return group; }
-            set
-            {
-                group = value;
-                OnPropertyChanged("Group");
-            }
+            get; set;
         }
 
-        public virtual Test Test 
+        public int IDTest
         {
-            get { return test; }
-            set
-            {
-                test = value;
-                OnPropertyChanged("Test");
-            }
+            get; set;
         }
-        public User User 
+        public virtual Test Test
         {
-            get { return user; }
-            set
-            {
-                user = value;
-                OnPropertyChanged("User");
-            }
+            get; set;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        public User User
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get; set;
         }
     }
 }

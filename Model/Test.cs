@@ -10,80 +10,40 @@ using System.ComponentModel;
 
 namespace CSharpDB.Model
 {
-    public enum Grade 
+    public class Test 
     {
-        five = 5,
-        four = 4,
-        three = 3,
-        two = 2
-    }
-    public class Test : INotifyPropertyChanged
-    {
-        private int idtest;
-        private DateTime date;
-        private Grade grade;
-        private int iduserprofile;
-        private UserProfile userprofile;
-        private ICollection<QuestionList> questionlists;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDTest 
+        public int IDTest
         {
-            get { return idtest; }
-            set
-            {
-                idtest = value;
-                OnPropertyChanged("IDTest");
-            }
+            get; set;
         }
-        public DateTime Date 
+        public DateTime Date
         {
-            get { return date; }
-            set
-            {
-                date = value;
-                OnPropertyChanged("Date");
-            }
+            get; set;
         }
-        public Grade Grade 
+
+        public int IDGrade
         {
-            get { return grade; }
-            set
-            {
-                grade = value;
-                OnPropertyChanged("Grade");
-            }
+            get; set;
+        }
+        public virtual Grade Grade
+        {
+            get; set;
         }
 
         public int IDUserProfile
         {
-            get { return iduserprofile; }
-            set
-            {
-                iduserprofile = value;
-                OnPropertyChanged("IDUserProfile");
-            }
+            get; set;
         }
-        public virtual UserProfile UserProfile 
+        public virtual UserProfile UserProfile
         {
-            get { return userprofile; }
-            set
-            {
-                userprofile = value;
-                OnPropertyChanged("UserProfile");
-            }
-        }
-        public virtual ICollection<QuestionList> QuestionLists
-        {
-            get { return questionlists; }
+            get; set;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        public virtual ICollection<QuestionList> QuestionLists
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get; 
         }
     }
 }

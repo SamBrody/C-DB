@@ -10,24 +10,18 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model.RelationQuestionFolder
 {
-    public class RelationTask : INotifyPropertyChanged
+    public class RelationTask 
     {
         private int idrelationtask;
         private string tasktext;
         private int idrelationquestion;
-        private RelationQuestion relationquestion;
-        private RelationAnswer relationanswer;
+        private ICollection<RelationQuestion> relationquestions;
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDRelationTask
         {
-            get { return idrelationtask; }
-            set
-            {
-                idrelationtask = value;
-                OnPropertyChanged("IDRelationTask");
-            }
+            get; set;
         }
         public string TaskText
         {
@@ -48,24 +42,10 @@ namespace CSharpDB.Model.RelationQuestionFolder
                 OnPropertyChanged("IDRelationQuestion");
             }
         }
-        public virtual RelationQuestion RelationQuestion 
-        {
-            get { return relationquestion; }
-            set
-            {
-                relationquestion = value;
-                OnPropertyChanged("RelationQuestion");
-            }
-        }
 
-        public virtual RelationAnswer RelationAnswers 
+        public virtual ICollection<RelationQuestion> RelationQuestions
         {
-            get { return relationanswer; }
-            set
-            {
-                relationanswer = value;
-                OnPropertyChanged("RelationAnswers");
-            }
+            get { return relationquestions; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

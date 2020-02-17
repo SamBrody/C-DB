@@ -12,10 +12,51 @@ namespace CSharpDB.Model.RelationQuestionFolder
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDRelationQuestion { get; set; }
+        public int IDRelationQuestion
+        {
+            get { return idrelationquestion; }
+            set
+            {
+                idrelationquestion = value;
+                OnPropertyChanged("IDRelationQuestion");
+            }
+        }
 
-        public int IDQuestionGroup { get; set; }
-        public virtual QuestionGroup QuestionGroup { get; set; }
-        public virtual ICollection<RelationTask> RelationTasks { get;  }
+        public int IDQuestionGroup
+        {
+            get { return idquestiongroup; }
+            set
+            {
+                idquestiongroup = value;
+                OnPropertyChanged("IDQuestionGroup");
+            }
+        }
+
+        public int IDRelationTask
+        {
+            get { return idrelationtask; }
+            set
+            {
+                idrelationtask = value;
+                OnPropertyChanged("IDRelationTask");
+            }
+        }
+
+        public RelationTask RelationTask
+        {
+            get { return relationtask; }
+            set
+            {
+                relationtask = value;
+                OnPropertyChanged("RelationTask");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

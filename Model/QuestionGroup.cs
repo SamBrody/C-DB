@@ -11,44 +11,23 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class QuestionGroup : INotifyPropertyChanged
+    public class QuestionGroup 
     {
-        private int idquestiongroup;
-        private string qgroupname;
-        private ICollection<RelationQuestion> relationquestions;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDQuestionGroup 
+        public int IDQuestionGroup
         {
-            get { return idquestiongroup; }
-            set
-            {
-                idquestiongroup = value;
-                OnPropertyChanged("IDQuestionGroup");
-            }
+            get; set;
         }
         [Required]
-        public string QGroupName 
+        public string QGroupName
         {
-            get { return qgroupname; }
-            set
-            {
-                qgroupname = value;
-                OnPropertyChanged("QGroupName");
-            }
+            get; set;
         }
 
         public virtual ICollection<RelationQuestion> RelationQuestions
         {
-            get { return relationquestions; }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop="")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get;
         }
     }
 }

@@ -10,81 +10,36 @@ using System.Runtime.CompilerServices;
 
 namespace CSharpDB.Model
 {
-    public class User : INotifyPropertyChanged 
+    public class User 
     {
-        private int iduser;
-        private string login;
-        private string password;
-        private int idrole;
-        private Role role;
-        private UserProfile userprofile;
-
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]        
-        public int IDUser 
+        public int IDUser
         {
-            get { return iduser; }
-            set
-            {
-                iduser = value;
-                OnPropertyChanged("IDUser");
-            }
+            get; set;
         }
         [Required]
-        public string Login 
+        public string Login
         {
-            get { return login; }
-            set
-            {
-                login = value;
-                OnPropertyChanged("Login");
-            }
+            get; set;
         }
         [Required]
-        public string Password 
+        public string Password
         {
-            get { return password; }
-            set
-            {
-                password = value;
-                OnPropertyChanged("Password");
-            }
+            get; set;
         }
         public int IDRole
         {
-            get { return idrole; }
-            set
-            {
-                idrole = value;
-                OnPropertyChanged("IDRole");
-            }
+            get; set;
         }
         [DefaultValue("student")]
         public virtual Role Role
         {
-            get { return role; }
-            set
-            {
-                role = value;
-                OnPropertyChanged("Role");
-            }
+            get; set;
         }
 
-        public UserProfile UserProfile 
+        public UserProfile UserProfile
         {
-            get { return userprofile; }
-            set
-            {
-                userprofile = value;
-                OnPropertyChanged("UserProfile");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            get; set;
         }
     }
 }

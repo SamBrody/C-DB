@@ -8,14 +8,45 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model.RelationQuestionFolder
 {
-    public class RelationAnswer
+    public class RelationAnswer : INotifyPropertyChanged
     {
         [Key]
         [ForeignKey("RelationQuestion")]
-        public int IDRelationTask { get; set; }
+        public int IDRelationTask
+        {
+            get { return idrelationtask; }
+            set
+            {
+                idrelationtask = value;
+                OnPropertyChanged("IDRelationTask");
+            }
+        }
         [Required]
-        public string AnswerText { get; set; }
+        public string AnswerText 
+        {
+            get { return answertext; }
+            set
+            {
+                answertext = value;
+                OnPropertyChanged("AnswerText");
+            }
+        }
 
-        public virtual RelationQuestion RelationQuestion { get; set; }
+        public virtual RelationQuestion RelationQuestion 
+        {
+            get { return relationquestion; }
+            set
+            {
+                relationquestion = value;
+                OnPropertyChanged("RelationQuestion");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

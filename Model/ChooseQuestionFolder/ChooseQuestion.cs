@@ -8,14 +8,40 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model.ChooseQuestionFolder
 {
-    public class ChooseQuestion
+    public class ChooseQuestion : INotifyPropertyChanged
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDChooseQuestion { get; set; }
+        public int IDChooseQuestion 
+        {
+            get { return idchoosequestion; }
+            set
+            {
+                idchoosequestion = value;
+                OnPropertyChanged("IDChooseQuestion");
+            }
+        }
         [Required]
-        public string TaskText { get; set; }
+        public string TaskText 
+        {
+            get { return tasktext; }
+            set
+            {
+                tasktext = value;
+                OnPropertyChanged("TaskText");
+            }
+        }
 
-        public virtual ICollection<ChooseAnswer> ChooseAnswers { get;  }
+        public virtual ICollection<ChooseAnswer> ChooseAnswers
+        {
+            get { return chooseanswers; }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }
