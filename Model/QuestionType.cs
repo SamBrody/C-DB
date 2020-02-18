@@ -17,6 +17,6 @@ namespace CSharpDB.Model
         public int IDQuestionType { get; set; }
         public string TextType { get; set; }
 
-        public virtual ICollection<Question> Questions {get;}
+        public virtual ICollection<Question> Questions {get; set; }
     }
 }

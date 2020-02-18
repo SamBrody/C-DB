@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpProjCore.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,6 @@ namespace CSharpDB.Model
         public int IDRole { get; set; }
         [Required]
         public string RoleName { get; set; }
-        public virtual ICollection<UserProfile> UserProfiles { get;}
+        public virtual ICollection<User> Users{ get; set; }
     }
 }

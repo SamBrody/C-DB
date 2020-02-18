@@ -18,12 +18,9 @@ namespace CSharpDB.Model
         public int IDQType { get; set; }
         public virtual QuestionType QuestionType { get; set; }
 
-        public virtual ICollection<ChooseAnswer> ChooseAnswers { get; }
-        public virtual ICollection<RelationFirstHalf> RelationQuestions { get;}
-        public virtual ICollection<InputAnswer> InputAnswers { get;}
-
-        public int IDQuestionList { get; set; }
-        public virtual QuestionList QuestionList { get; set; }
+        public virtual ICollection<ChooseAnswer> ChooseAnswers { get; set;}
+        public virtual ICollection<RelationFirstHalf> RelationFirstHalfs { get; set;}
+        public virtual ICollection<InputAnswer> InputAnswers { get; set; }
 
         public int IDTheme { get; set; }
         public virtual Theme Theme { get; set; }

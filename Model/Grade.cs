@@ -15,6 +15,6 @@ namespace CSharpDB.Model
         public int IDGrade { get; set; }
         public string GradeName { get; set; }
 
-        public virtual ICollection<TestResults> Tests { get; }
+        public virtual ICollection<TestResults> TestResults { get; set; }
     }
 }
