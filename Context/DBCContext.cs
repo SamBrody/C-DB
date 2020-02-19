@@ -111,8 +111,8 @@ namespace CSharpDB.Context
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
-                    new User {IDUser=1,IDRole=1,Login="defTeacher", Password="17def02teacher2020"},
-                    new User {IDUser=2,IDRole=1,Login="defTeacher", Password="17def02teacher2020"}
+                    new User {IDUser=1,IDRole=1,Login="defTeacher", Password="17def02t20"},
+                    new User {IDUser=2,IDRole=2,Login="defStudent", Password="student"}
                 });
 
             modelBuilder.Entity<UserProfile>().HasData(
@@ -124,7 +124,7 @@ namespace CSharpDB.Context
             modelBuilder.Entity<UserStudent>().HasData(
                 new UserStudent[]
                 {
-                    new UserStudent {IDUser=2,FirstName="teacher_f", LastName="teacher_l", IDGroup=1}
+                    new UserStudent {IDUser=2,FirstName="student_f", LastName="student_l", IDGroup=1}
                 });
 
             modelBuilder.Entity<Group>().HasData(

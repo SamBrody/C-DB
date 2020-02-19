@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace CSharpDB
+namespace CSharpProjCore
 {
     /// <summary>
     /// Interaction logic for App.xaml

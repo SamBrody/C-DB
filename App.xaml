@@ -1,8 +1,8 @@
-﻿<Application x:Class="CSharpDB.App"
+﻿<Application x:Class="CSharpProjCore.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CSharpDB"
-             StartupUri="View/MainWindow.xaml">
+             xmlns:local="clr-namespace:CSharpProjCore"
+             StartupUri="View/AuthorizationWin.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
