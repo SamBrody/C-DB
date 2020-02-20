@@ -10,9 +10,15 @@
     <Compile Update="View\AuthorizationWin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\RegistrationWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\AuthorizationWin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\RegistrationWin.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
