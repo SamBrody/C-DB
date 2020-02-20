@@ -124,13 +124,15 @@ namespace CSharpDB.Context
             modelBuilder.Entity<UserStudent>().HasData(
                 new UserStudent[]
                 {
-                    new UserStudent {IDUser=2,FirstName="student_f", LastName="student_l", IDGroup=1}
+                    new UserStudent {IDUser=2,FirstName="student_f", LastName="student_l", IDGroup=2}
                 });
 
             modelBuilder.Entity<Group>().HasData(
                 new Group[]
                 {
-                    new Group { IDGroup=1, GroupName="aaa" }
+                    new Group { IDGroup=1, GroupName="-" },
+                    new Group { IDGroup=2, GroupName="И-31" },
+                    new Group { IDGroup=3, GroupName="И-32" }
                 });
         }
     }
