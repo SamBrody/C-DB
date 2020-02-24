@@ -18,12 +18,12 @@ namespace CSharpDB.Pages
             InitializeComponent();
         }
 
-        string path1 = "../../Docs/mysql.xaml";
+        string path1 = "pack://application:,,,/Docs/mysql.xaml";
 
         private void button1Load_Click(object sender, RoutedEventArgs e)
         {
             using (FileStream fs = File.Open(path1, FileMode.Open))
-            {
+            {                
                 FlowDocument document = XamlReader.Load(fs) as FlowDocument;
                 if (document != null)
                     docViewer.Document = document;

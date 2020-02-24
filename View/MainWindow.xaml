@@ -6,13 +6,13 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:CSharpDB"
         mc:Ignorable="d"
-        Title="DBbyC#" MouseLeftButtonDown="Window_MouseLeftButtonDown"  MinWidth="1000" MinHeight="600" Height="768" Width="1024" Background="#FF2C2E36"  WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+        Title="ЭСУН C# DataBase" MouseLeftButtonDown="Window_MouseLeftButtonDown"  MinWidth="1000" MinHeight="600" Height="768" Width="1024" Background="#FF2C2E36"  WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="180"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="MenuClose">
@@ -52,19 +52,19 @@
         <Grid Height="50" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="0" Background="#FF41444F">
             <TextBlock Foreground="#FFC5C5C5" Text="DBbyC#" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center"/>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" >
-                <TextBlock Text="ИМЯ ПОЛЬЗОВАТЕЛЯ" VerticalAlignment="Center" FontSize="18" Foreground="#FFC5C5C5"/>
+                <TextBlock x:Name="textBlockUSERNAME" VerticalAlignment="Center" FontSize="18" Foreground="#FFC5C5C5"/>
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Foreground="#FFC5C5C5">
                     <StackPanel Width="200">
                         <Button Content="Настройки"/>
                         <Button Content="Помощь"/>
-                        <Button Content="Сменить пользователя"/>
+                        <Button x:Name="buttonChangeUser" Content="Сменить пользователя" Click="buttonChangeUser_Click"/>
                         <Separator/>
                         <Button x:Name="ButtonPopUpExit" Content="Выход" Click="ButtonPopUpExit_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
         </Grid>
-        <Frame Margin="60,50,0,0" Source="DBook.xaml"> 
+        <Frame x:Name="frameMainWindow" Margin="60,50,0,0" Source="DBook.xaml" NavigationUIVisibility="Hidden"> 
             
         </Frame>
         <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Grid.RowSpan="2" Background="#FF41444F">
@@ -78,22 +78,28 @@
                     </Button>
                 </Grid>
                 <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FFC5C5C5">
-                    <ListViewItem Height="60" x:Name="ListViewHome">
+                    <ListViewItem Height="60" x:Name="ListViewHome" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Home" Width="25" Margin="10" VerticalAlignment="Center"/>
                             <TextBlock Text="Главная" Style="{StaticResource TextBlockStyle1}"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60" x:Name="ListViewTheory">
+                    <ListViewItem Height="60" x:Name="ListViewTheory" Selected="ListViewTheory_Selected">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BookOpenOutline" Width="25" Margin="10" VerticalAlignment="Center"/>
                             <TextBlock Text="Теория" Style="{StaticResource TextBlockStyle1}"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60" x:Name="ListViewTest">
+                    <ListViewItem Height="60" x:Name="ListViewTest" IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CheckBox" Width="25" Margin="10" VerticalAlignment="Center"/>
                             <TextBlock Text="Тестирование" Style="{StaticResource TextBlockStyle1}"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="ListViewStudentList" Selected="ListViewStudentList_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Contacts" Width="25" Margin="10" VerticalAlignment="Center"/>
+                            <TextBlock Text="Список студентов" Style="{StaticResource TextBlockStyle1}"/>
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
