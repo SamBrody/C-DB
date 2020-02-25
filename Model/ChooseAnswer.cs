@@ -15,6 +15,7 @@ namespace CSharpDB.Model
         public int IDChooseAnswer { get; set; }
         [Required]
         public string AnswerText { get; set; }
+        [Required]
         public bool IsRight { get; set; }
 
         public int IDQuestion { get; set; }

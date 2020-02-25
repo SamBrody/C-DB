@@ -17,7 +17,8 @@ namespace CSharpDB.Model
         public int IDTestResults { get; set; }
         public DateTime Date { get; set; }
 
-        public virtual QuestionList QuestionList { get; set; }
+        public int IDTest { get; set; }
+        public virtual Test Test { get; set; }
 
         public int IDGrade { get; set; }
         public virtual Grade Grade { get; set; }

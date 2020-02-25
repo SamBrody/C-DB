@@ -13,7 +13,10 @@ namespace CSharpDB.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IDTest { get; set; }
-        public virtual ICollection<Question> Questions { get; }
+        public string TestName { get; set; }
+
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<TestResults> TestResults { get; set; }
 
         public int IDTheme { get; set; }
         public virtual Theme Theme { get; set; }

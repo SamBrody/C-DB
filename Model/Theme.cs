@@ -15,7 +15,7 @@ namespace CSharpDB.Model
         public int IDTheme { get; set; }
         public string TextTheme { get; set; }
 
-        public virtual ICollection<Question> Questions { get; }
-        public virtual ICollection<Test> Tests { get; }
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Test> Tests { get; set; }
     }
 }
