@@ -1,0 +1,112 @@
+﻿<Window
+    x:Class="CSharpProjCore.View.AuthorizationWin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="clr-namespace:CSharpProjCore"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local2="clr-namespace:CSharpProjCore.ViewModel"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Авторизация"
+    Width="450"
+    Height="300"
+    MinWidth="450"
+    MinHeight="300"
+    MaxWidth="450"
+    MaxHeight="300"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ToolWindow"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <Style x:Key="ButtonStyle1">
+            <!--<Style.Triggers>
+                <Trigger Property="Button.IsMouseOver" Value="true">
+                    <Setter Property="Button.Background" Value="#FF202022"/>
+                </Trigger>
+            </Style.Triggers>-->
+            <Setter Property="Button.BorderBrush" Value="{x:Null}" />
+            <Setter Property="Button.Background" Value="#FF202022" />
+            <Setter Property="Button.Width" Value="120" />
+            <Setter Property="Button.Height" Value="35" />
+            <Setter Property="Button.HorizontalAlignment" Value="Left" />
+            <Setter Property="Button.VerticalAlignment" Value="Stretch" />
+            <Setter Property="Button.Foreground" Value="#FFC5C5C5" />
+            <Setter Property="Button.FontSize" Value="18" />
+        </Style>
+        <Style x:Key="ButtonStyle2">
+            <Setter Property="Button.BorderBrush" Value="{x:Null}" />
+            <Setter Property="Button.Background" Value="#FF202022" />
+            <Setter Property="Button.Width" Value="260" />
+            <Setter Property="Button.Height" Value="35" />
+            <Setter Property="Button.HorizontalAlignment" Value="Left" />
+            <Setter Property="Button.VerticalAlignment" Value="Stretch" />
+            <Setter Property="Button.Foreground" Value="#FFC5C5C5" />
+            <Setter Property="Button.FontSize" Value="18" />
+        </Style>
+        <Style x:Key="LabelStyle1">
+            <Setter Property="Label.Width" Value="80" />
+            <Setter Property="Label.Height" Value="40" />
+            <Setter Property="Label.Foreground" Value="#FFC5C5C5" />
+            <Setter Property="Label.FontSize" Value="20" />
+            <Setter Property="Label.HorizontalAlignment" Value="Left" />
+            <Setter Property="Label.VerticalAlignment" Value="Stretch" />
+        </Style>
+        <Style x:Key="TextBoxStyle1">
+            <Setter Property="TextBox.Width" Value="170" />
+            <Setter Property="TextBox.Height" Value="30" />
+            <Setter Property="TextBox.FontSize" Value="20" />
+            <Setter Property="TextBox.TextAlignment" Value="Justify" />
+            <Setter Property="TextBox.MaxLength" Value="10" />
+            <Setter Property="TextBox.Foreground" Value="#FFC5C5C5" />
+            <Setter Property="TextBox.Background" Value="#FF202022" />
+            <Setter Property="TextBox.BorderBrush" Value="{x:Null}" />
+        </Style>
+        <Style x:Key="passwordBoxStyle1">
+            <Setter Property="PasswordBox.Width" Value="170" />
+            <Setter Property="PasswordBox.Height" Value="30" />
+            <Setter Property="PasswordBox.FontSize" Value="20" />
+            <Setter Property="PasswordBox.MaxLength" Value="10" />
+            <Setter Property="PasswordBox.Foreground" Value="#FFC5C5C5" />
+            <Setter Property="PasswordBox.Background" Value="#FF202022" />
+            <Setter Property="PasswordBox.BorderBrush" Value="{x:Null}" />
+        </Style>
+        <local2:AuthorizationViewModel x:Key="authorizationViewModel" />
+    </Window.Resources>
+
+    <Grid Background="#FF41444F">
+        <Label
+            Margin="100,0,0,120"
+            Content="Логин"
+            Style="{StaticResource LabelStyle1}" />
+        <Label
+            Margin="100,20,0,40"
+            Content="Пароль"
+            Style="{StaticResource LabelStyle1}" />
+        <TextBox
+            x:Name="textBoxLogin"
+            Margin="100,0,0,120"
+            Style="{StaticResource TextBoxStyle1}"
+            Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" />
+        <PasswordBox
+            x:Name="passwordBoxPassword"
+            Margin="100,20,0,40"
+            Style="{StaticResource passwordBoxStyle1}" />
+        <Button
+            x:Name="buttonEnter"
+            Margin="100,200,0,20"
+            Click="buttonEnter_Click"
+            Content="Войти"
+            Style="{StaticResource ButtonStyle1}" />
+        <Button
+            x:Name="buttonRegis"
+            Margin="240,200,0,20"
+            Content="Регистрация"
+            Style="{StaticResource ButtonStyle1}" />
+        <Button
+            x:Name="buttonEnterGuest"
+            Margin="100,110,0,20"
+            Content="Войти как Гость"
+            Style="{StaticResource ButtonStyle2}" />
+    </Grid>
+</Window>
