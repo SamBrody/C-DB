@@ -11,49 +11,13 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class Role : INotifyPropertyChanged
+    public class Role 
     {
-        private int idRole;
-        private string roleName;
-        private ICollection<User> users;
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDRole
-        {
-            get { return idRole; }
-            set
-            {
-                idRole = value;
-                OnPropertyChanged("IDRole");
-            }
-        }
+        public int IDRole { get; set; }
         [Required]
-        public string RoleName
-        {
-            get { return roleName; }
-            set
-            {
-                roleName = value;
-                OnPropertyChanged("RoleName");
-            }
-        }
-        public virtual ICollection<User> Users
-        {
-            get { return users; }
-            set
-            {
-                users = value;
-                OnPropertyChanged("Users");
-            }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+        public string RoleName { get; set; }
+        public virtual ICollection<User> Users{ get; set; }
     }
 }

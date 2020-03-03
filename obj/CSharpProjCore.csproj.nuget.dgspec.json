@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\CSharpProjCore — копия\\CSharpProjCore.csproj": {}
+    "F:\\CSharpProjCore\\CSharpProjCore.csproj": {}
   },
   "projects": {
-    "F:\\CSharpProjCore — копия\\CSharpProjCore.csproj": {
+    "F:\\CSharpProjCore\\CSharpProjCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\CSharpProjCore — копия\\CSharpProjCore.csproj",
+        "projectUniqueName": "F:\\CSharpProjCore\\CSharpProjCore.csproj",
         "projectName": "CSharpProjCore",
-        "projectPath": "F:\\CSharpProjCore — копия\\CSharpProjCore.csproj",
+        "projectPath": "F:\\CSharpProjCore\\CSharpProjCore.csproj",
         "packagesPath": "C:\\Users\\Sam\\.nuget\\packages\\",
-        "outputPath": "F:\\CSharpProjCore — копия\\obj\\",
+        "outputPath": "F:\\CSharpProjCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -62,10 +62,6 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[2.2.6, )"
-            },
-            "Prism.Wpf": {
-              "target": "Package",
-              "version": "[7.2.0.1422, )"
             }
           },
           "imports": [
