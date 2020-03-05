@@ -46,7 +46,7 @@ namespace CSharpDB.Context
             modelBuilder.Entity<UserProfile>().HasOne<User>(p => p.User).WithOne(b => b.UserProfile).HasForeignKey<UserProfile>(p => p.IDUser).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности UserStudents
-            modelBuilder.Entity<UserStudent>().HasOne(p => p.Group).WithMany(b => b.UserStudents).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<UserStudent>().HasOne(p => p.Group).WithMany(b => b.UserStudents).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);           
 
             //Описание связей для сущности User
             modelBuilder.Entity<User>().HasOne(p => p.Role).WithMany(b => b.Users).HasForeignKey(p => p.IDRole).OnDelete(DeleteBehavior.Cascade);
@@ -91,7 +91,7 @@ namespace CSharpDB.Context
             modelBuilder.Entity<InputAnswer>().HasOne(p => p.Question).WithMany(b => b.InputAnswers).HasForeignKey(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Group
-            modelBuilder.Entity<Group>().HasMany(p => p.UserStudents).WithOne(b => b.Group).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Group>().HasMany(p => p.UserStudents).WithOne(b => b.Group).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);            
 
             //Описание связей для сущности Grade
             modelBuilder.Entity<Grade>().HasMany(p => p.TestResults).WithOne(b => b.Grade).HasForeignKey(p => p.IDGrade).OnDelete(DeleteBehavior.Cascade);

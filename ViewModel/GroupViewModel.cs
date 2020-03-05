@@ -9,49 +9,47 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using CSharpProjCore.View;
 using System.Windows.Data;
+using System.Windows;
 
 namespace CSharpProjCore.ViewModel
 {
     public class GroupViewModel : BaseViewModel
     {
+        DBCContext db = new DBCContext();
+
         #region Constructor
         public GroupViewModel()
-        {
-            DBCContext db = new DBCContext();
-            db.Groups.Load();
-            Groups = db.Groups.Local.ToObservableCollection();
+        {            
+            UpdateDB();
         }
         #endregion
 
         #region Commands
-        RelayCommand updateCommand;
+        RelayCommand addCommand;
         RelayCommand deleteCommand;
-        //RelayCommand selectionChangedCommand;
 
-        //public RelayCommand SelectionChangedCommand
-        //{
-        //    get
-        //    {
-        //        return selectionChangedCommand ??
-        //            (selectionChangedCommand = new RelayCommand((selectedItem) =>
-        //            {
-        //                if (selectedItem == null) return;                        
-        //            }));
-        //    }
-        //}
-        // команда обновления
-        public RelayCommand UpdateCommand
+        // команда добавления
+        public RelayCommand AddCommand
         {
             get
             {
-                return updateCommand ??
-                  (updateCommand = new RelayCommand((o) =>
+                return addCommand ??
+                  (addCommand = new RelayCommand((selectedItem) =>
                   {
-                      DBCContext db = new DBCContext();
-                      db.SaveChanges();
+                      if (selectedItem == null) return;
+                      try
+                      { 
+                          db.SaveChanges();
+                          MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                      }
+                      catch (Exception e)
+                      {
+                          MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                      }
                   }));
             }
-        }
+        }        
+
         // команда удаления
         public RelayCommand DeleteCommand
         {
@@ -59,13 +57,21 @@ namespace CSharpProjCore.ViewModel
             {
                 return deleteCommand ??
                   (deleteCommand = new RelayCommand((selectedItem) =>
-                  {
-                      DBCContext db = new DBCContext();
+                  {                      
                       if (selectedItem == null) return;
                       // получаем выделенный объект
                       Group group = selectedItem as Group;
-                      db.Groups.Remove(group);
-                      db.SaveChanges();
+                      try
+                      {
+                          db.Groups.Remove(group);
+                          db.SaveChanges();
+                          MessageBox.Show("Операция успешно выполнена!","",MessageBoxButton.OK,MessageBoxImage.Information);
+                      }
+                      catch (Exception e)
+                      {
+                          MessageBox.Show($"Возникло исключение -\n {e}","Ошибка!",MessageBoxButton.OK, MessageBoxImage.Error);
+                      }
+                      
                   }));
             }
         }
@@ -73,16 +79,14 @@ namespace CSharpProjCore.ViewModel
 
         #region Properties
         ObservableCollection<Group> groups;
-        public ObservableCollection<Group> Groups
+        public ObservableCollection<Group> GroupsView
         {
             get { return groups; }
             set
             {
                 groups = value;
-                OnPropertyChanged("Groups");
             }
         }
-        public ListCollectionView GroupsView { get; set; }
 
         private Group selectedGroup;
         public Group SelectedGroup
@@ -91,16 +95,15 @@ namespace CSharpProjCore.ViewModel
             set
             {
                 selectedGroup = value;
-                OnGroupChanged();
-                OnPropertyChanged("SelectedGroup");
             }
         }
         #endregion
 
         #region Methods
-        private void OnGroupChanged()
+        private void UpdateDB()
         {
-            GroupsView.Refresh();
+            db.Groups.Load();
+            GroupsView = db.Groups.Local.ToObservableCollection();                                
         }
         #endregion        
     }

@@ -13,6 +13,8 @@ namespace CSharpProjCore.ViewModel
 {
     public class StudentListViewModel : BaseViewModel
     {
+        DBCContext db = new DBCContext();
+
         #region Constructor
         public StudentListViewModel ()
         {                        
@@ -139,7 +141,6 @@ namespace CSharpProjCore.ViewModel
             CBindex = -1;
             LastName = "";
             FirstName = "";
-            DBCContext db = new DBCContext();
             db.UserStudents.Load();
             var student = (from st in db.UserStudents
                            join gr in db.Groups on st.IDGroup equals gr.IDGroup
@@ -156,7 +157,6 @@ namespace CSharpProjCore.ViewModel
 
         private void SearchLastName(string lastname)
         {
-            DBCContext db = new DBCContext();
             if (CBindex >= 0)
             {
                 var student = (from st in db.UserStudents
@@ -191,7 +191,6 @@ namespace CSharpProjCore.ViewModel
 
         private void SearchFirstName(string firstname)
         {
-            DBCContext db = new DBCContext();
             if (CBindex >= 0)
             {
                 var student = (from st in db.UserStudents
@@ -225,8 +224,7 @@ namespace CSharpProjCore.ViewModel
         }
 
         private void SearchGroupName()
-        {
-            DBCContext db = new DBCContext();
+        {           
             var student = (from st in db.UserStudents
                            where st.IDGroup == CBindex + 1
                            join gr in db.Groups on st.IDGroup equals gr.IDGroup
@@ -243,7 +241,6 @@ namespace CSharpProjCore.ViewModel
 
         private void GroupSet()
         {
-            DBCContext db = new DBCContext();
             db.Groups.Load();
             Groups = db.Groups.Local.ToObservableCollection();
             CBindex = -1;

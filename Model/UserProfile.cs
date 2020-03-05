@@ -20,7 +20,7 @@ namespace CSharpDB.Model
         private User user;
 
         [Key]
-        [ForeignKey("User")]
+        //[ForeignKey("User")]
         public int IDUser
         {
             get { return idUser; }
@@ -60,6 +60,7 @@ namespace CSharpDB.Model
                 OnPropertyChanged("TestResults");
             }
         }
+
 
         public User User
         {

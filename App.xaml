@@ -5,7 +5,7 @@
     xmlns:View="clr-namespace:CSharpProjCore.View"
     xmlns:ViewModel="clr-namespace:CSharpProjCore.ViewModel"
     xmlns:local="clr-namespace:CSharpProjCore"
-    StartupUri="View/StudentList.xaml">
+    StartupUri="View/AuthorizationWin.xaml">
 
 
     <Application.Resources>

@@ -22,7 +22,7 @@ namespace CSharpProjCore.ViewModel
         private string login;
 
         public AuthorizationViewModel()
-        {
+        {            
             db = new DBCContext();
             db.Users.Load();
             Users = db.Users.Local.ToObservableCollection();
@@ -36,39 +36,7 @@ namespace CSharpProjCore.ViewModel
                 users = value;
                 OnPropertyChanged("Users");
             }
-        }
-
-        //public RelayCommand LoginCommand
-        //{
-        //    get
-        //    {
-        //        return loginCommand ??
-        //          (loginCommand = new RelayCommand((o) =>
-        //          {
-        //              db = new DBCContext();
-        //              string login_ = Login;
-        //              string password_ = o as string;
-        //              if (login_.Length > 0)
-        //              {
-        //                  if (password_.Length > 0)
-        //                  {
-        //                      var authoriz = (from p in db.Users
-        //                                      where p.Login == login_
-        //                                     && p.Password == password_
-        //                                      select p);
-        //                      if (authoriz.Count() > 0)
-        //                      {
-        //                          MessageBox.Show("Авторизация прошла успешно!");
-        //                          string username = login_;  
-        //                      }
-        //                      else MessageBox.Show("Логин или пароль введены не правильно!");
-        //                  }
-        //                  else MessageBox.Show("Введите Пароль!");
-        //              }
-        //              else MessageBox.Show("Введите Логин!");
-        //          }));
-        //    }
-        //}
+        }        
 
         public string Login
         {

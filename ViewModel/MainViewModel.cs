@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CSharpProjCore.ViewModel
@@ -22,7 +23,23 @@ namespace CSharpProjCore.ViewModel
         RelayCommand closeMenuCommand;
         RelayCommand navigateToStudentList;
         RelayCommand navigateToDBook;
+        RelayCommand exitCommand;
 
+        public RelayCommand ExitCommand
+        {
+            get
+            {
+                return exitCommand ??
+                  (exitCommand = new RelayCommand((o) =>
+                  {
+                      MessageBoxResult result = MessageBox.Show("Вы действительно хотите выйти?", "Выход из программы", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                      if (result == MessageBoxResult.Yes)
+                      {
+                          System.Windows.Application.Current.Shutdown();
+                      }
+                  }));
+            }            
+        }
         public RelayCommand OpenMenuCommand
         {
             get

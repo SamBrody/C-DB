@@ -7,6 +7,11 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\QuestionList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="View\AuthorizationWin.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -14,6 +19,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\QuestionList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegistrationWin.xaml">
