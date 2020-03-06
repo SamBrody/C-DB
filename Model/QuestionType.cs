@@ -10,13 +10,49 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class QuestionType
+    public class QuestionType : INotifyPropertyChanged
     {
+        private int idQuestionType;
+        private string textType;
+        private ICollection<Question> questions;
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDQuestionType { get; set; }
-        public string TextType { get; set; }
+        public int IDQuestionType
+        {
+            get { return idQuestionType; }
+            set
+            {
+                idQuestionType = value;
+                OnPropertyChanged("IDQuestionType");
+            }
+        }
+        public string TextType
+        {
+            get { return textType; }
+            set
+            {
+                textType = value;
+                OnPropertyChanged("TextType");
+            }
+        }
 
-        public virtual ICollection<Question> Questions {get; set; }
+        public virtual ICollection<Question> Questions
+        {
+            get { return questions; }
+            set
+            {
+                questions = value;
+                OnPropertyChanged("Questions");
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
     }
 }

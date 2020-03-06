@@ -7,19 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="Docs\mysql.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="1.2.2" />
     <PackageReference Include="MaterialDesignThemes" Version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.6" />
+    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Docs\mysql.xaml" />
+    <Compile Update="View\AuthorizationWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\GroupListWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\RegistrationWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\StudentList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

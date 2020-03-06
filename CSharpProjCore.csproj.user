@@ -7,24 +7,27 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\AuthorizationWin.xaml.cs">
+    <Compile Update="View\AddQuestion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\GroupListWin.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\RegistrationWin.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\StudentList.xaml.cs">
+    <Compile Update="View\QuestionList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\AddQuestion.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\AuthorizationWin.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\GroupListWin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\QuestionList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegistrationWin.xaml">

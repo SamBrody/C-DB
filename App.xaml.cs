@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CSharpDB;
+using CSharpProjCore.View;
+using CSharpProjCore.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,6 @@ namespace CSharpProjCore
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }
