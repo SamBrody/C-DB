@@ -12,6 +12,8 @@
     MinWidth="1000"
     MinHeight="600"
     Background="#FF2C2E36"
+    BorderBrush="#007acc"
+    BorderThickness="1"
     WindowStartupLocation="CenterScreen"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
@@ -86,9 +88,15 @@
                     <StackPanel Width="200">
                         <Button Content="Настройки" />
                         <Button Content="Помощь" />
-                        <Button x:Name="buttonChangeUser" Content="Сменить пользователя" />
+                        <Button
+                            x:Name="buttonPopUpChangeUser"
+                            Click="buttonPopUpChangeUser_Click"
+                            Content="Сменить пользователя" />
                         <Separator />
-                        <Button x:Name="ButtonPopUpExit" Content="Выход" />
+                        <Button
+                            x:Name="ButtonPopUpExit"
+                            Command="{Binding ExitCommand}"
+                            Content="Выход" />
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
@@ -197,6 +205,21 @@
                                 VerticalAlignment="Center"
                                 Kind="Contacts" />
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список студентов" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ListViewQuestionList" Height="60">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigateToQuestionList}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Kind="AddBox" />
+                            <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список вопросов" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

@@ -22,9 +22,21 @@ namespace CSharpProjCore.ViewModel
         RelayCommand openMenuCommand;
         RelayCommand closeMenuCommand;
         RelayCommand navigateToStudentList;
+        RelayCommand navigateToQuestionList;
         RelayCommand navigateToDBook;
         RelayCommand exitCommand;
 
+        public RelayCommand NavigateToQuestionList
+        {
+            get
+            {
+                return navigateToQuestionList ??
+                  (navigateToQuestionList = new RelayCommand((o) =>
+                  {
+                      ViewSource = "AddQuestion.xaml";
+                  }));
+            }
+        }
         public RelayCommand ExitCommand
         {
             get

@@ -11,14 +11,15 @@ using CSharpProjCore.View;
 using System.Windows.Data;
 using System.Windows;
 
+
 namespace CSharpProjCore.ViewModel
 {
-    public class GroupViewModel : BaseViewModel
+    public class ThemeListViewModel : BaseViewModel
     {
         DBCContext db = new DBCContext();
 
         #region Constructor
-        public GroupViewModel()
+        public ThemeListViewModel()
         {
             UpdateDB();
         }
@@ -59,10 +60,10 @@ namespace CSharpProjCore.ViewModel
                   {
                       if (selectedItem == null) return;
                       // получаем выделенный объект
-                      Group group = selectedItem as Group;
+                      Theme theme = selectedItem as Theme;
                       try
                       {
-                          db.Groups.Remove(group);
+                          db.Themes.Remove(theme);
                           db.SaveChanges();
                           MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                       }
@@ -77,14 +78,14 @@ namespace CSharpProjCore.ViewModel
         #endregion
 
         #region Properties
-        private ObservableCollection<Group> groups = new ObservableCollection<Group>();
-        public ObservableCollection<Group> GroupsView
+        private ObservableCollection<Theme> themes = new ObservableCollection<Theme>();
+        public ObservableCollection<Theme> ThemeView
         {
-            get { return groups; }
-            set 
-            { 
-                groups = value;
-                OnPropertyChanged("GroupsView");
+            get { return themes; }
+            set
+            {
+                themes = value;
+                OnPropertyChanged("ThemeView");
             }
         }
 
@@ -92,7 +93,7 @@ namespace CSharpProjCore.ViewModel
         public Group SelectedItem
         {
             get { return selectedItem; }
-            set 
+            set
             {
                 selectedItem = value;
                 OnPropertyChanged("SelectedItem");
@@ -103,10 +104,9 @@ namespace CSharpProjCore.ViewModel
         #region Methods
         private void UpdateDB()
         {
-            db.Groups.Load();
-            GroupsView = db.Groups.Local.ToObservableCollection();
+            db.Themes.Load();
+            ThemeView = db.Themes.Local.ToObservableCollection();
         }
         #endregion
     }
 }
-            

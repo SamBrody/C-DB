@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="CSharpProjCore.View.GroupListWin"
+    x:Class="CSharpProjCore.View.ThemeListWin"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -65,17 +65,17 @@
             FontSize="18"
             Foreground="#FFC5C5C5"
             HorizontalScrollBarVisibility="Disabled"
-            ItemsSource="{Binding Path=GroupsView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            ItemsSource="{Binding Path=ThemeView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding IDGroup}"
+                    Binding="{Binding IDTheme}"
                     Header="ID" />
                 <DataGridTextColumn
                     Width="4.5*"
-                    Binding="{Binding GroupName}"
-                    Header="Название группы" />
+                    Binding="{Binding TextTheme}"
+                    Header="Тема" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel
@@ -99,7 +99,7 @@
                 BorderBrush="{x:Null}"
                 Command="{Binding DeleteCommand}"
                 CommandParameter="{Binding ElementName=datagridGroupList, Path=SelectedItem}"
-                Content="Удалить группу"
+                Content="Удалить тему"
                 FontSize="14"
                 Foreground="#FFC5C5C5" />
         </StackPanel>

@@ -18,7 +18,7 @@ namespace CSharpDB.Model
         private QuestionType questionType;
         private ICollection<ChooseAnswer> chooseAnswers;
         private ICollection<RelationFirstHalf> relationFirstHalves;
-        private ICollection<InputAnswer> inputAnswers;
+        private InputAnswer inputAnswers;
         private int idTheme;
         private Theme theme;
         private int idTest;
@@ -82,7 +82,7 @@ namespace CSharpDB.Model
                 OnPropertyChanged("RelationFirstHalfs");
             }
         }
-        public virtual ICollection<InputAnswer> InputAnswers
+        public virtual InputAnswer InputAnswers
         {
             get { return inputAnswers; }
             set

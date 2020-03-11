@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Data;
+using System.Windows;
 
 namespace CSharpProjCore.ViewModel
 {
@@ -17,9 +18,9 @@ namespace CSharpProjCore.ViewModel
 
         #region Constructor
         public StudentListViewModel ()
-        {                        
+        {            
             SetDataGrid();
-            GroupSet();
+            ComboBoxGroupSet();            
         }
         #endregion
 
@@ -121,17 +122,25 @@ namespace CSharpProjCore.ViewModel
         }
 
         private ObservableCollection<Group> groups = new ObservableCollection<Group>();
-        public ObservableCollection<Group> Groups
+        public ObservableCollection<Group> GroupsView
         {
             get { return groups; }
-            set { groups = value; OnPropertyChanged("Groups"); }
+            set 
+            { 
+                groups = value;
+                OnPropertyChanged("GroupsView");
+            }
         }
 
         private Group selectedItem = new Group();
         public Group SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; OnPropertyChanged("SelectedItem"); }
+            set
+            { 
+                selectedItem = value; 
+                OnPropertyChanged("SelectedItem"); 
+            }
         }
         #endregion
 
@@ -239,12 +248,12 @@ namespace CSharpProjCore.ViewModel
             UserStudents= oc;
         }
 
-        private void GroupSet()
+        private void ComboBoxGroupSet()
         {
             db.Groups.Load();
-            Groups = db.Groups.Local.ToObservableCollection();
+            GroupsView = db.Groups.Local.ToObservableCollection();
             CBindex = -1;
-        }
+        }        
         #endregion
     }
 }

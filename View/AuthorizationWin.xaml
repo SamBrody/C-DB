@@ -14,6 +14,8 @@
     MinHeight="300"
     MaxWidth="450"
     MaxHeight="300"
+    BorderBrush="#007acc"
+    BorderThickness="1"
     WindowStartupLocation="CenterScreen"
     WindowStyle="ToolWindow"
     mc:Ignorable="d">
@@ -27,7 +29,7 @@
             </Style.Triggers>-->
             <Setter Property="Button.BorderBrush" Value="{x:Null}" />
             <Setter Property="Button.Background" Value="#FF202022" />
-            <Setter Property="Button.Width" Value="120" />
+            <Setter Property="Button.Width" Value="110" />
             <Setter Property="Button.Height" Value="35" />
             <Setter Property="Button.HorizontalAlignment" Value="Left" />
             <Setter Property="Button.VerticalAlignment" Value="Stretch" />
@@ -37,7 +39,7 @@
         <Style x:Key="ButtonStyle2">
             <Setter Property="Button.BorderBrush" Value="{x:Null}" />
             <Setter Property="Button.Background" Value="#FF202022" />
-            <Setter Property="Button.Width" Value="260" />
+            <Setter Property="Button.Width" Value="250" />
             <Setter Property="Button.Height" Value="35" />
             <Setter Property="Button.HorizontalAlignment" Value="Left" />
             <Setter Property="Button.VerticalAlignment" Value="Stretch" />
@@ -94,18 +96,20 @@
             Style="{StaticResource passwordBoxStyle1}" />
         <Button
             x:Name="buttonEnter"
-            Margin="100,200,0,20"
+            Margin="102,200,0,20"
             Click="buttonEnter_Click"
             Content="Войти"
             Style="{StaticResource ButtonStyle1}" />
         <Button
             x:Name="buttonRegis"
-            Margin="240,200,0,20"
+            Margin="242,200,0,20"
+            Click="buttonRegis_Click"
             Content="Регистрация"
             Style="{StaticResource ButtonStyle1}" />
         <Button
             x:Name="buttonEnterGuest"
-            Margin="100,110,0,20"
+            Margin="102,110,0,20"
+            Click="buttonEnterGuest_Click"
             Content="Войти как Гость"
             Style="{StaticResource ButtonStyle2}" />
     </Grid>

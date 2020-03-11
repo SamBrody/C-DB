@@ -29,7 +29,6 @@
     </Page.Resources>
 
     <Grid
-        x:Name="spTheory"
         Margin="0,0,0,0"
         HorizontalAlignment="Stretch"
         Background="#FF2C2E36"
@@ -39,7 +38,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition
                     Width="0.3*"
-                    MinWidth="200"
+                    MinWidth="120"
                     MaxWidth="300" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -66,7 +65,8 @@
                         Foreground="#FFC5C5C5" />
                     <Button
                         x:Name="button1Load"
-                        Content="1. MySQL"
+                        Command="{Binding GoToTestPage}"
+                        Content="1. Test"
                         Style="{StaticResource ButtonStyle1}" />
                     <Button Style="{StaticResource ButtonStyle1}" />
                     <Button Style="{StaticResource ButtonStyle1}" />
@@ -77,14 +77,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition
-                        Width="636"
+                        Width="797"
                         MinWidth="343"
-                        MaxWidth="636" />
+                        MaxWidth="797" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Style="{StaticResource StackPanelStyle1}" />
                 <StackPanel Grid.Column="2" Style="{StaticResource StackPanelStyle1}" />
-                <FlowDocumentScrollViewer
+                <!--<FlowDocumentScrollViewer
                     Name="docViewer"
                     Grid.Row="0"
                     Grid.Column="1"
@@ -93,7 +93,16 @@
                     VerticalAlignment="Stretch"
                     Background="#FF41444F"
                     Foreground="#FFC5C5C5"
-                    IsToolBarVisible="True" />
+                    IsToolBarVisible="True" />-->
+                <DocumentViewer
+                    x:Name="docViewerTest"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    Background="#FF5B5E6A"
+                    Document="{Binding DocV}"
+                    Foreground="#FFC5C5C5" />
             </Grid>
         </Grid>
     </Grid>

@@ -29,6 +29,18 @@ namespace CSharpProjCore.View
             InitializeComponent();
             StudentListViewModel studentListViewModel = new StudentListViewModel();
             this.DataContext = studentListViewModel;
-        }     
+        }
+
+        private void buttonGroupList_Click(object sender, RoutedEventArgs e)
+        {
+            GroupListWin groupListWin = new GroupListWin();
+            groupListWin.Show();
+        }
+
+        //private void buttonGroupList_Click(object sender, RoutedEventArgs e)
+        //{
+        //    GroupListWin groupListWin = new GroupListWin();
+        //    groupListWin.Show();
+        //}
     }
 }

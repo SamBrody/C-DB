@@ -10,6 +10,9 @@
     MinHeight="500"
     MaxWidth="450"
     MaxHeight="500"
+    Background="#FF2C2E36"
+    BorderBrush="#007acc"
+    BorderThickness="1"
     WindowStartupLocation="CenterScreen"
     WindowStyle="ToolWindow"
     mc:Ignorable="d">
@@ -125,6 +128,7 @@
         <Button
             x:Name="buttonBack"
             Margin="0,390,0,0"
+            Click="buttonBack_Click_1"
             Content="Назад"
             Style="{StaticResource ButtonStyle2}" />
     </Grid>

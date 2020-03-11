@@ -27,12 +27,20 @@ namespace CSharpProjCore.View
     /// </summary>
     public partial class MainWindow : Window
     {        
-        public MainWindow()
+        public MainWindow(string username)
         {
             InitializeComponent();
-            //textBlockUSERNAME.Text += username.ToUpper();
+            textBlockUSERNAME.Text += username.ToUpper();
             MainViewModel mainViewModel = new MainViewModel();
             this.DataContext = mainViewModel;
+        }
+
+        private void buttonPopUpChangeUser_Click(object sender, RoutedEventArgs e)
+        {
+            AuthorizationWin authorizationWin = new AuthorizationWin();
+            authorizationWin.Show();
+
+            this.Close();
         }
     }
 }

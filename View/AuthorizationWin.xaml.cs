@@ -1,5 +1,6 @@
 ﻿using CSharpDB;
 using CSharpDB.Context;
+using CSharpProjCore.Model;
 using CSharpProjCore.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,20 +22,41 @@ namespace CSharpProjCore.View
     /// </summary>
     public partial class AuthorizationWin : Window
     {
+        DBCContext db = new DBCContext();
+        #region Constructor
         public AuthorizationWin()
         {
             InitializeComponent();
             this.DataContext = this.Resources["authorizationViewModel"];
+            CheckUserExist();
         }
+        #endregion
 
-        private void buttonEnter_Click(object sender, RoutedEventArgs e)
+        #region Methods
+        private void CheckUserExist()
         {
-            Autoriz();
+            var user_ = (from l in db.Users
+                             //where l.Login == textBoxLogin.Text && l.Password == passwordBoxPassword.Password
+                         select l.IDUser).ToList();
+            for (int i = 0; i < user_.Count; i++)
+            {
+                var userProf = (from l in db.UserProfiles
+                                where l.IDUser == user_[i]
+                                select l);
+                int b = userProf.Count();
+                if (b == 0)
+                {
+                    User user = db.Users.Find(user_[i]);
+                    if (user != null)
+                    {
+                        db.Users.Remove(user);
+                        db.SaveChanges();
+                    }
+                }
+            }
         }
-
         private void Autoriz()
-        {
-            DBCContext db = new DBCContext();
+        {            
             string login = textBoxLogin.Text;
             string password = passwordBoxPassword.Password;
             if (login.Length > 0)
@@ -47,18 +69,44 @@ namespace CSharpProjCore.View
                                    select p;
                     if (authoriz.Count() > 0)
                     {
-                        MessageBox.Show("Авторизация прошла успешно!");
+                        MessageBox.Show("Авторизация прошла успешно!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                         string username = login;
-                        MainWindow mainWindow = new MainWindow();
+                        MainWindow mainWindow = new MainWindow(login);
                         mainWindow.Show();
 
                         this.Close();
                     }
-                    else MessageBox.Show("Логин или пароль введены не правильно!");
+                    else MessageBox.Show("Такого пользователя не существует/логин или пароль введены не правильно!", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else MessageBox.Show("Введите Пароль!");
+                else MessageBox.Show("Введите Пароль!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else MessageBox.Show("Введите Логин!");
+            else MessageBox.Show("Введите Логин!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+        #endregion
+
+        #region Events
+        private void buttonEnter_Click(object sender, RoutedEventArgs e)
+        {            
+            Autoriz();            
+        }
+
+        private void buttonEnterGuest_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Вы вошли как Гость!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            string login = "Гость";
+            MainWindow mainWindow = new MainWindow(login);
+            mainWindow.Show();
+
+            this.Close();
+        }
+
+        private void buttonRegis_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWin registrationWin = new RegistrationWin();
+            registrationWin.Show();
+
+            this.Close();
+        }
+        #endregion
     }
 }

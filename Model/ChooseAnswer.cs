@@ -12,23 +12,23 @@ namespace CSharpDB.Model
 {
     public class ChooseAnswer: INotifyPropertyChanged
     {
-        private int idChooseanswer;
-        private string answerText;
-        private bool isRight;
+        private int idChooseAnswer;
         private int idQuestion;
+        private string answerText;
+        private bool isRight;        
         private Question question;
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDChooseAnswer 
+        public int IDChooseAnswer
         {
-            get { return idChooseanswer; } 
+            get { return idChooseAnswer; }
             set
             {
-                idChooseanswer = value;
+                idChooseAnswer = value;
                 OnPropertyChanged("IDChooseAnswer");
             }
-        }
+        }        
         [Required]
         public string AnswerText
         {
@@ -49,7 +49,6 @@ namespace CSharpDB.Model
                 OnPropertyChanged("IsRight");
             }
         }
-
         public int IDQuestion
         {
             get { return idQuestion; }
@@ -68,8 +67,6 @@ namespace CSharpDB.Model
                 OnPropertyChanged("Question");
             }
         }
-
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {

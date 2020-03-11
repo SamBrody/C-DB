@@ -12,44 +12,56 @@ namespace CSharpDB.Model
 {
     public class RelationFirstHalf: INotifyPropertyChanged
     {
-        private int idRelationFirstHalf;
-        private string text;
-        private RelationSecondHalf relationSecondHalf;
+        private int idRelationFH;
         private int idQuestion;
+        private string textLeft;
+        private string textRight;
+        //private RelationSecondHalf relationSecondHalf;        
         private Question question;
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDRelationFirstHalf
+        public int IDRelationFH
         {
-            get { return idRelationFirstHalf; }
+            get { return idRelationFH; }
             set
             {
-                idRelationFirstHalf = value;
-                OnPropertyChanged("IDRelationFirstHalf");
+                idRelationFH = value;
+                OnPropertyChanged("IDRelationFH");
             }
         }
+       
         [Required]
-        public string Text
+        public string TextLeft
         {
-            get { return text; }
+            get { return textLeft; }
             set
             {
-                text = value;
-                OnPropertyChanged("Text");
+                textLeft = value;
+                OnPropertyChanged("TextLeft");
             }
         }
 
-        public virtual RelationSecondHalf RelationSecondHalf
+        [Required]
+        public string TextRight
         {
-            get { return relationSecondHalf; }
+            get { return textRight; }
             set
             {
-                relationSecondHalf = value;
-                OnPropertyChanged("RelationSecondHalf");
+                textRight = value;
+                OnPropertyChanged("TextRight");
             }
         }
 
+        //public virtual RelationSecondHalf RelationSecondHalf
+        //{
+        //    get { return relationSecondHalf; }
+        //    set
+        //    {
+        //        relationSecondHalf = value;
+        //        OnPropertyChanged("RelationSecondHalf");
+        //    }
+        //}
         public int IDQuestion
         {
             get { return idQuestion; }

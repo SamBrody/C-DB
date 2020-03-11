@@ -22,22 +22,21 @@ namespace CSharpProjCore.View
     /// </summary>
     public partial class RegistrationWin : Window
     {
+        DBCContext db = new DBCContext();
+
+        #region Constructor
         public RegistrationWin()
         {
             InitializeComponent();
             bindComboGroup();
         }
+        #endregion
 
+        #region Properties
         public List<Group> groups { get; set; }
-        private void bindComboGroup()
-        {
-            DBCContext db = new DBCContext();
-            var item = from gr in db.Groups
-                       select gr;
-            ObservableCollection<Group> groups = new ObservableCollection<Group>(item);
-            DataContext = groups;
-        }
+        #endregion
 
+        #region Events
         private void buttonBack_Click(object sender, RoutedEventArgs e)
         {
             BackToAuthoriz();
@@ -46,12 +45,22 @@ namespace CSharpProjCore.View
 
         private void buttonAcceptReg_Click(object sender, RoutedEventArgs e)
         {
+            //CheckUserExist();
             if (addProfile() == true)
             {
                 BackToAuthoriz();
             }
         }
+        #endregion
 
+        #region Methods
+        private void bindComboGroup()
+        {
+            var item = from gr in db.Groups
+                       select gr;
+            ObservableCollection<Group> groups = new ObservableCollection<Group>(item);
+            DataContext = groups;
+        }
         private void BackToAuthoriz()
         {
             AuthorizationWin authorizationWin = new AuthorizationWin();
@@ -59,13 +68,11 @@ namespace CSharpProjCore.View
 
             this.Close();
         }
-
         private bool addProfile()
         {
-            DBCContext db = new DBCContext();
             if ((textBoxFName.Text == "") || (textBoxLName.Text == "") || (passwordBoxPassword.Password == "") || (passwordBoxPasswordrepeat.Password == "") || (textBoxLogin.Text == ""))
             {
-                MessageBox.Show("Необходимо заполнить все поля!");
+                MessageBox.Show("Необходимо заполнить все поля!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return (false);
             }
             else
@@ -77,7 +84,7 @@ namespace CSharpProjCore.View
                                    select p;
                     if (authoriz.Count() > 0)
                     {
-                        MessageBox.Show("Введеный Логин уже занять.");
+                        MessageBox.Show("Введеный Логин уже занять.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return (false);
                     }
                     else
@@ -87,36 +94,39 @@ namespace CSharpProjCore.View
 
                             User u1 = new User { Login = textBoxLogin.Text, Password = passwordBoxPassword.Password, IDRole = 2 };
                             db.Users.Add(u1);
-                            UserStudent uS1 = new UserStudent { IDUser = u1.IDUser, FirstName = textBoxFName.Text, LastName = textBoxLName.Text, IDGroup = GetGroupID(comboBoxGroup.SelectedValue.ToString()) };
+                            UserStudent uS1 = new UserStudent { IDUser = u1.IDUser, FirstName = textBoxFName.Text, LastName = textBoxLName.Text, IDGroup = GetGroupID(comboBoxGroup.SelectedValue) };
 
                             db.UserStudents.Add(uS1);
                             db.SaveChanges();
-                            MessageBox.Show("Регистрация прошла успешно!");
+                            MessageBox.Show("Регистрация прошла успешно!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                             return (true);
                         }
-                        catch
+                        catch (Exception e)
                         {
-                            MessageBox.Show("Возникло исключение!");
+                            MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                             return (false);
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Введеные пароли не совпадают! Пожалуйста, убедитесь в правильности ввода паролей.");
+                    MessageBox.Show("Введеные пароли не совпадают! Пожалуйста, убедитесь в правильности ввода паролей.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return (false);
                 }
 
             }
         }
-
-        private int GetGroupID(string selectedValue)
+        private int GetGroupID(object selectedValue)
         {
-            DBCContext db = new DBCContext();
-            var groupid = (from p in db.Groups
-                           where p.GroupName == selectedValue
-                           select p.IDGroup).ToList();
-            return (groupid[0]);
+            return ((int)selectedValue);
         }
+        private void buttonBack_Click_1(object sender, RoutedEventArgs e)
+        {
+            AuthorizationWin authorizationWin = new AuthorizationWin();
+            authorizationWin.Show();
+
+            this.Close();
+        }        
+        #endregion
     }
 }

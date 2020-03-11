@@ -1,0 +1,413 @@
+﻿<Page
+    x:Class="CSharpProjCore.View.AddQuestion"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:local="clr-namespace:CSharpProjCore.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AddQuestion"
+    d:DesignHeight="768"
+    d:DesignWidth="1024"
+    Background="#FF2C2E36"
+    ShowsNavigationUI="False"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Foreground" Value="#FFC5C5C5" />
+            <Setter Property="Background" Value="#FF202022" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5,5,5,5" />
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Foreground" Value="#FFC5C5C5" />
+            <Setter Property="Background" Value="#FF202022" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="2">
+            <TextBlock
+                Width="200"
+                Height="40"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="18"
+                Foreground="#FFC5C5C5"
+                Text="Выберите тип вопроса" />
+            <ComboBox
+                x:Name="comboBoxGroupNameSearch"
+                Width="215"
+                Height="40"
+                Margin="10,0,0,10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#FF202022"
+                DisplayMemberPath="TextType"
+                FontSize="18"
+                Foreground="#FFC5C5C5"
+                IsReadOnly="True"
+                ItemsSource="{Binding QuestionView, UpdateSourceTrigger=PropertyChanged}"
+                SelectedIndex="{Binding CBindex1}"
+                SelectedItem="{Binding Path=SelectedItem1, Mode=TwoWay}"
+                SelectedValuePath="IDQuestionType">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ShowGrid}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock
+                Width="200"
+                Height="40"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="18"
+                Foreground="#FFC5C5C5"
+                Text="Выберите тему" />
+            <ComboBox
+                x:Name="comboBoxThemeNameSearch"
+                Width="215"
+                Height="40"
+                Margin="10,0,0,10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="#FF202022"
+                DisplayMemberPath="TextTheme"
+                FontSize="18"
+                Foreground="#FFC5C5C5"
+                IsReadOnly="True"
+                ItemsSource="{Binding ThemesView, UpdateSourceTrigger=PropertyChanged}"
+                SelectedIndex="{Binding CBindex2}"
+                SelectedItem="{Binding Path=SelectedItem2, Mode=TwoWay}"
+                SelectedValuePath="IDTheme">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Horizontal">
+            <Button
+                Width="150"
+                Height="45"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Center"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                BorderThickness="0"
+                Command="{Binding AddCommand}"
+                Content="Добавить"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <Button
+                Width="150"
+                Height="45"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Right"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                BorderThickness="0"
+                Command="{Binding ClearCommand}"
+                Content="Очистить"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <Button
+                Width="150"
+                Height="45"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Right"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                BorderThickness="0"
+                Click="Button_Click"
+                Content="Список тем"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+        </StackPanel>
+        <Grid
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Visibility="{Binding GridInput}">
+            <StackPanel>
+                <TextBlock
+                    Width="220"
+                    Height="45"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="Введите текст вопроса:" />
+                <TextBox
+                    Width="Auto"
+                    Height="85"
+                    Margin="10,0,10,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    Background="#FF202022"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="{Binding Path=QuestionTextInput}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Width="220"
+                    Height="45"
+                    Margin="10,80,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="Введите ответ на вопрос:" />
+                <TextBox
+                    Width="Auto"
+                    Height="85"
+                    Margin="10,0,10,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    Background="#FF202022"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="{Binding Path=AnswerTextInput}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Visibility="{Binding GridChoose}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="250" />
+                <ColumnDefinition Width="*" MinWidth="250" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.35*" MinHeight="100" />
+                <RowDefinition Height="0.1*" MinHeight="45" />
+                <RowDefinition Height="*" MinHeight="100" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                <TextBlock
+                    Width="220"
+                    Height="45"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="Введите текст вопроса:" />
+                <TextBox
+                    Width="Auto"
+                    Height="85"
+                    Margin="10,0,10,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    Background="#FF202022"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="{Binding Path=QuestionTextChoose}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal">
+                <TextBlock
+                    Width="100"
+                    Height="30"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="Ответы:" />
+                <Button
+                    Width="200"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Right"
+                    Background="#FF202022"
+                    BorderBrush="{x:Null}"
+                    BorderThickness="0"
+                    Command="{Binding DeleteCommandCh}"
+                    CommandParameter="{Binding ElementName=datagridRFH, Path=SelectedItem}"
+                    Content="Удалить запись"
+                    DockPanel.Dock="Right"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Margin="0,46,0,0">
+                <DataGrid
+                    Width="Auto"
+                    Margin="10"
+                    AutoGenerateColumns="False"
+                    Background="#FF202022"
+                    BorderBrush="{x:Null}"
+                    CanUserAddRows="True"
+                    CanUserDeleteRows="True"
+                    CanUserResizeColumns="False"
+                    CanUserResizeRows="False"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    HorizontalScrollBarVisibility="Disabled"
+                    ItemsSource="{Binding Path=ChooseAnswers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding Path=SelectedItemChoose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="0.5*"
+                            Binding="{Binding IDQuestion}"
+                            Header="ID" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding IDQuestion}"
+                            Header="ID Вопроса" />
+                        <DataGridTextColumn
+                            Width="4.5*"
+                            Binding="{Binding AnswerText}"
+                            Header="Текст ответа" />
+                        <DataGridCheckBoxColumn
+                            Width="*"
+                            Binding="{Binding IsRight}"
+                            Header="Верный" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.ColumnSpan="3"
+            Visibility="{Binding GridRelation}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="250" />
+                <ColumnDefinition Width="*" MinWidth="250" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.35*" MinHeight="100" />
+                <RowDefinition Height="0.1*" MinHeight="45" />
+                <RowDefinition Height="*" MinHeight="100" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                <TextBlock
+                    Width="220"
+                    Height="45"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="Введите текст к вопросу:" />
+                <TextBox
+                    Width="Auto"
+                    Height="85"
+                    Margin="10,0,10,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    AcceptsReturn="True"
+                    Background="#FF202022"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="{Binding Path=QuestionTextRelation}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal">
+                <TextBlock
+                    Width="100"
+                    Height="30"
+                    Margin="10,10,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    Text="Ответы:" />
+                <Button
+                    Width="200"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    HorizontalAlignment="Right"
+                    Background="#FF202022"
+                    BorderBrush="{x:Null}"
+                    BorderThickness="0"
+                    Command="{Binding DeleteCommandR}"
+                    CommandParameter="{Binding ElementName=datagridRFH, Path=SelectedItem}"
+                    Content="Удалить запись"
+                    DockPanel.Dock="Right"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                <DataGrid
+                    x:Name="datagridRFH"
+                    Width="Auto"
+                    Margin="10"
+                    AutoGenerateColumns="False"
+                    Background="#FF202022"
+                    BorderBrush="{x:Null}"
+                    CanUserAddRows="True"
+                    CanUserDeleteRows="True"
+                    CanUserResizeColumns="False"
+                    CanUserResizeRows="False"
+                    FontSize="18"
+                    Foreground="#FFC5C5C5"
+                    HorizontalScrollBarVisibility="Auto"
+                    ItemsSource="{Binding Path=RelationFirstHalves, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding Path=SelectedRFH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="0.5*"
+                            Binding="{Binding IDRelationFH}"
+                            Header="ID" />
+                        <DataGridTextColumn
+                            Width="1.2*"
+                            Binding="{Binding IDQuestion}"
+                            Header="ID Вопроса" />
+                        <DataGridTextColumn
+                            Width="4*"
+                            Binding="{Binding TextLeft}"
+                            Header="Текст вопроса" />
+                        <DataGridTextColumn
+                            Width="4*"
+                            Binding="{Binding TextRight}"
+                            Header="Текст ответа" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

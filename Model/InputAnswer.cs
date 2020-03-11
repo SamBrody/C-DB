@@ -12,20 +12,18 @@ namespace CSharpDB.Model
 {
     public class InputAnswer : INotifyPropertyChanged
     {
-        private int idInputAnswer;
-        private string answerText;
         private int idQuestion;
+        private string answerText;
         private Question question;
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IDInputAnswer
+        public int IDQuestion
         {
-            get { return idInputAnswer; }
+            get { return idQuestion; }
             set
             {
-                idInputAnswer = value;
-                OnPropertyChanged("IDInputAnswer");
+                idQuestion = value;
+                OnPropertyChanged("IDQuestion");
             }
         }
         [Required]
@@ -36,16 +34,6 @@ namespace CSharpDB.Model
             {
                 answerText = value;
                 OnPropertyChanged("AnswerText");
-            }
-        }
-
-        public int IDQuestion
-        {
-            get { return idQuestion; }
-            set
-            {
-                idQuestion = value;
-                OnPropertyChanged("IDQuestion");
             }
         }
         public virtual Question Question
