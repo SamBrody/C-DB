@@ -23,6 +23,7 @@ namespace CSharpProjCore.ViewModel
             GridInput = "Collapsed";
             GridChoose = "Collapsed";
             GridRelation = "Collapsed";
+            VisibleButton = "Collapsed";
             SetRSH();
         }        
         #endregion
@@ -71,18 +72,21 @@ namespace CSharpProjCore.ViewModel
                           GridChoose = "Visible";
                           GridInput = "Collapsed";
                           GridRelation = "Collapsed";
+                          VisibleButton = "Collapsed";
                       }                       
                       if (CBindex1 + 1 == 2)
                       {
                           GridInput = "Visible";
                           GridChoose = "Collapsed";
                           GridRelation = "Collapsed";
+                          VisibleButton = "Collapsed";
                       }
                       if (CBindex1 + 1 == 3)
                       {
                           GridInput = "Collapsed";
                           GridChoose = "Collapsed";
                           GridRelation = "Visible";
+                          VisibleButton = "Visible";
                       }
                   }));
             }
@@ -97,16 +101,7 @@ namespace CSharpProjCore.ViewModel
                   {
                       if (selectedItem == null) return;
                       // получаем выделенный объект
-                      ChooseAnswer chooseAnswer = selectedItem as ChooseAnswer;
-                      try
-                      {
-                          ChooseAnswers.Remove(chooseAnswer);
-                          MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                      }
-                      catch (Exception e)
-                      {
-                          MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                      }
+                      DelChooseQuestion(selectedItem);                 
                   }));
             }
         }
@@ -119,23 +114,24 @@ namespace CSharpProjCore.ViewModel
                   {
                       if (selectedItem == null) return;
                       // получаем выделенный объект
-                      RelationFirstHalf relationFirstHalf = selectedItem as RelationFirstHalf;
-                      try
-                      {
-                          RelationFirstHalves.Remove(relationFirstHalf);
-                          MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                      }
-                      catch (Exception e)
-                      {
-                          MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                      }
+                      DelRelationQuestion(selectedItem);                     
                   }));
             }
         }
         #endregion
 
         //Свойства
-        #region Properties         
+        #region Properties      
+        private string visibleButton;
+        public string VisibleButton
+        {
+            get { return visibleButton; }
+            set
+            {
+                visibleButton = value;
+                OnPropertyChanged("VisibleButton");
+            }
+        }
         private int cbIndex1;
         public int CBindex1
         {
@@ -504,6 +500,32 @@ namespace CSharpProjCore.ViewModel
             //               }).ToList();
             //ObservableCollection<Object> oc = new ObservableCollection<object>(question);
             //RelationSecondHalves = oc;
+        }
+        private void DelRelationQuestion(object selectedItem)
+        {
+            RelationFirstHalf relationFirstHalf = selectedItem as RelationFirstHalf;
+            try
+            {
+                RelationFirstHalves.Remove(relationFirstHalf);
+                MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private void DelChooseQuestion(object selectedItem)
+        {
+            ChooseAnswer chooseAnswer = selectedItem as ChooseAnswer;
+            try
+            {
+                ChooseAnswers.Remove(chooseAnswer);
+                MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
     }

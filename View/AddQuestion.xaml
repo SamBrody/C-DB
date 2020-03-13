@@ -46,20 +46,20 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="2">
             <TextBlock
-                Width="200"
+                Width="Auto"
                 Height="40"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
+                Margin="10,0,10,0"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 FontSize="18"
                 Foreground="#FFC5C5C5"
                 Text="Выберите тип вопроса" />
             <ComboBox
                 x:Name="comboBoxGroupNameSearch"
-                Width="215"
+                Width="Auto"
                 Height="40"
-                Margin="10,0,0,10"
-                HorizontalAlignment="Left"
+                Margin="10,0,10,10"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="#FF202022"
                 DisplayMemberPath="TextType"
@@ -79,20 +79,20 @@
         </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1">
             <TextBlock
-                Width="200"
+                Width="Auto"
                 Height="40"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
+                Margin="10,0,10,0"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 FontSize="18"
                 Foreground="#FFC5C5C5"
                 Text="Выберите тему" />
             <ComboBox
                 x:Name="comboBoxThemeNameSearch"
-                Width="215"
+                Width="Auto"
                 Height="40"
-                Margin="10,0,0,10"
-                HorizontalAlignment="Left"
+                Margin="10,0,10,10"
+                HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="#FF202022"
                 DisplayMemberPath="TextTheme"
@@ -113,12 +113,13 @@
         <StackPanel
             Grid.Row="0"
             Grid.Column="0"
+            HorizontalAlignment="Stretch"
             Orientation="Horizontal">
             <Button
                 Width="150"
                 Height="45"
                 Margin="10,0,0,0"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Stretch"
                 Background="#FF202022"
                 BorderBrush="{x:Null}"
                 BorderThickness="0"
@@ -130,7 +131,7 @@
                 Width="150"
                 Height="45"
                 Margin="10,0,0,0"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Stretch"
                 Background="#FF202022"
                 BorderBrush="{x:Null}"
                 BorderThickness="0"
@@ -142,7 +143,7 @@
                 Width="150"
                 Height="45"
                 Margin="10,0,0,0"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Stretch"
                 Background="#FF202022"
                 BorderBrush="{x:Null}"
                 BorderThickness="0"
@@ -258,7 +259,7 @@
                     BorderBrush="{x:Null}"
                     BorderThickness="0"
                     Command="{Binding DeleteCommandCh}"
-                    CommandParameter="{Binding ElementName=datagridRFH, Path=SelectedItem}"
+                    CommandParameter="{Binding ElementName=datagridChoose, Path=SelectedItem}"
                     Content="Удалить запись"
                     DockPanel.Dock="Right"
                     FontSize="18"
@@ -270,6 +271,7 @@
                 Grid.ColumnSpan="2"
                 Margin="0,46,0,0">
                 <DataGrid
+                    x:Name="datagridChoose"
                     Width="Auto"
                     Margin="10"
                     AutoGenerateColumns="False"
@@ -288,16 +290,34 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="0.5*"
-                            Binding="{Binding IDQuestion}"
-                            Header="ID" />
+                            Binding="{Binding IDChooseAnswer}"
+                            Header="ID">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding IDQuestion}"
-                            Header="ID Вопроса" />
+                            Header="ID Вопроса">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="4.5*"
                             Binding="{Binding AnswerText}"
-                            Header="Текст ответа" />
+                            Header="Текст ответа">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridCheckBoxColumn
                             Width="*"
                             Binding="{Binding IsRight}"
@@ -366,9 +386,9 @@
                     Command="{Binding DeleteCommandR}"
                     CommandParameter="{Binding ElementName=datagridRFH, Path=SelectedItem}"
                     Content="Удалить запись"
-                    DockPanel.Dock="Right"
                     FontSize="18"
-                    Foreground="#FFC5C5C5" />
+                    Foreground="#FFC5C5C5"
+                    Visibility="{Binding VisibleButton}" />
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
                 <DataGrid
@@ -392,19 +412,43 @@
                         <DataGridTextColumn
                             Width="0.5*"
                             Binding="{Binding IDRelationFH}"
-                            Header="ID" />
+                            Header="ID">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="1.2*"
                             Binding="{Binding IDQuestion}"
-                            Header="ID Вопроса" />
+                            Header="ID Вопроса">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="4*"
                             Binding="{Binding TextLeft}"
-                            Header="Текст вопроса" />
+                            Header="Текст вопроса">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="4*"
                             Binding="{Binding TextRight}"
-                            Header="Текст ответа" />
+                            Header="Текст ответа">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

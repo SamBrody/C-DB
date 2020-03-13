@@ -10,7 +10,7 @@
     <Compile Update="View\AddQuestion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\QuestionList.xaml.cs">
+    <Compile Update="View\QuestionListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\ThemeListWin.xaml.cs">
@@ -30,7 +30,7 @@
     <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\QuestionList.xaml">
+    <Page Update="View\QuestionListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegistrationWin.xaml">

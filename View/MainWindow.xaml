@@ -164,7 +164,10 @@
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Главная" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ListViewTheory" Height="60">
+                    <ListViewItem
+                        x:Name="ListViewTheory"
+                        Height="60"
+                        IsSelected="{Binding SelectedTheory}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
                                 <i:InvokeCommandAction Command="{Binding NavigateToDBook}" />
@@ -210,7 +213,22 @@
                     <ListViewItem x:Name="ListViewQuestionList" Height="60">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
-                                <i:InvokeCommandAction Command="{Binding NavigateToQuestionList}" />
+                                <i:InvokeCommandAction Command="{Binding NavigateToQuestionListView}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Kind="QuestionMarkBox" />
+                            <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список вопросов" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ListViewQuestionAdd" Height="60">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigateToQuestionAdd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <StackPanel Orientation="Horizontal">
@@ -219,7 +237,7 @@
                                 Margin="10"
                                 VerticalAlignment="Center"
                                 Kind="AddBox" />
-                            <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список вопросов" />
+                            <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Добавить вопросов" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

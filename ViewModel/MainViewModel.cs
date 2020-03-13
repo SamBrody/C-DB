@@ -11,27 +11,26 @@ namespace CSharpProjCore.ViewModel
     {
         #region Constructor
         public MainViewModel()
-        {
-            ViewSource = "DBook.xaml";
-            VisibilityCloseMenu = "Collapsed";
-            VisibilityOpenMenu = "Visible";
-        }
+        {            
+            SetBaseValue();            
+        }       
         #endregion
 
         #region Commands
         RelayCommand openMenuCommand;
         RelayCommand closeMenuCommand;
         RelayCommand navigateToStudentList;
-        RelayCommand navigateToQuestionList;
+        RelayCommand navigateToQuestionAdd;
         RelayCommand navigateToDBook;
         RelayCommand exitCommand;
+        RelayCommand navigateToQuestionListView;
 
-        public RelayCommand NavigateToQuestionList
+        public RelayCommand NavigateToQuestionAdd
         {
             get
             {
-                return navigateToQuestionList ??
-                  (navigateToQuestionList = new RelayCommand((o) =>
+                return navigateToQuestionAdd ??
+                  (navigateToQuestionAdd = new RelayCommand((o) =>
                   {
                       ViewSource = "AddQuestion.xaml";
                   }));
@@ -98,6 +97,17 @@ namespace CSharpProjCore.ViewModel
                   }));
             }
         }
+        public RelayCommand NavigateToQuestionListView
+        {
+            get
+            {
+                return navigateToQuestionListView ??
+                  (navigateToQuestionListView = new RelayCommand((o) =>
+                  {
+                      ViewSource = "QuestionListView.xaml";
+                  }));
+            }
+        }
         #endregion
 
         #region Properties
@@ -131,9 +141,26 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("VisibilityCloseMenu");
             }
         }
+        private bool selectedTheory;
+        public bool SelectedTheory
+        {
+            get { return selectedTheory; }
+            set
+            {
+                selectedTheory = value;
+                OnPropertyChanged("SelectedTheory");
+            }
+        }
         #endregion
 
         #region Methods
+        private void SetBaseValue()
+        {
+            ViewSource = "DBook.xaml";
+            SelectedTheory = true;
+            VisibilityCloseMenu = "Collapsed";
+            VisibilityOpenMenu = "Visible";
+        }
         #endregion
     }
 }
