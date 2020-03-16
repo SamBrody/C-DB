@@ -10,7 +10,19 @@
     <Compile Update="View\AddQuestion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\QuestionList.xaml.cs">
+    <Compile Update="View\EditQuestionWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\QuestionListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TestView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TestListWin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ThemeListWin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -21,19 +33,31 @@
     <Page Update="View\AuthorizationWin.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\EditQuestionWin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\GroupListWin.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\QuestionList.xaml">
+    <Page Update="View\QuestionListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\RegistrationWin.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\StudentList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TestView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TestListWin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ThemeListWin.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

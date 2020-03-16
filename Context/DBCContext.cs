@@ -1,7 +1,8 @@
 ﻿using CSharpDB.Model;
 using CSharpProjCore.Model;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore.Extensions;
+using System;
+//using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace CSharpDB.Context
 {
@@ -18,7 +19,7 @@ namespace CSharpDB.Context
         public DbSet<Group> Groups { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<RelationFirstHalf> RelationFirstHalves { get; set; }
-        public DbSet<RelationSecondHalf> RelationSecondHalves { get; set; }
+        //public DbSet<RelationSecondHalf> RelationSecondHalves { get; set; }
         public DbSet<InputAnswer> InputAnswers { get; set; }
         public DbSet<ChooseAnswer> ChooseAnswers { get; set; }
         public DbSet<User> Users { get; set; }
@@ -33,7 +34,7 @@ namespace CSharpDB.Context
         //Настройка строки подключения к БД
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL(@"server=localhost;database=CSharpProj;user=root;password=Sam19brody96117$emyon");
+            optionsBuilder.UseMySql(@"server=localhost;database=CSharpProj;user=root;password=Sam19brody96117$emyon");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,7 +47,7 @@ namespace CSharpDB.Context
             modelBuilder.Entity<UserProfile>().HasOne<User>(p => p.User).WithOne(b => b.UserProfile).HasForeignKey<UserProfile>(p => p.IDUser).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности UserStudents
-            modelBuilder.Entity<UserStudent>().HasOne(p => p.Group).WithMany(b => b.UserStudents).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);           
+            modelBuilder.Entity<UserStudent>().HasOne(p => p.Group).WithMany(b => b.UserStudents).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности User
             modelBuilder.Entity<User>().HasOne(p => p.Role).WithMany(b => b.Users).HasForeignKey(p => p.IDRole).OnDelete(DeleteBehavior.Cascade);
@@ -54,7 +55,6 @@ namespace CSharpDB.Context
 
             //Описание связей для сущности Theme
             modelBuilder.Entity<Theme>().HasMany(p => p.Questions).WithOne(b => b.Theme).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Theme>().HasMany(p => p.Tests).WithOne(b => b.Theme).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности TestResults
             modelBuilder.Entity<TestResults>().HasOne(p => p.UserProfile).WithMany(b => b.TestResults).HasForeignKey(p => p.IDUserProfile).OnDelete(DeleteBehavior.Cascade);
@@ -62,7 +62,6 @@ namespace CSharpDB.Context
             modelBuilder.Entity<TestResults>().HasOne(p => p.Test).WithMany(b => b.TestResults).HasForeignKey(p => p.IDTest).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Test
-            modelBuilder.Entity<Test>().HasOne(p => p.Theme).WithMany(b => b.Tests).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Test>().HasMany(p => p.Questions).WithOne(b => b.Test).HasForeignKey(p => p.IDTest).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Test>().HasMany(p => p.TestResults).WithOne(b => b.Test).HasForeignKey(p => p.IDTest).OnDelete(DeleteBehavior.Cascade);
 
@@ -70,18 +69,18 @@ namespace CSharpDB.Context
             modelBuilder.Entity<Role>().HasMany(p => p.Users).WithOne(b => b.Role).HasForeignKey(p => p.IDRole).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности RelationSecondHalf
-            modelBuilder.Entity<RelationSecondHalf>().HasOne<RelationFirstHalf>(p => p.RelationFirstHalf).WithOne(b => b.RelationSecondHalf).HasForeignKey<RelationSecondHalf>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<RelationSecondHalf>().HasOne<RelationFirstHalf>(p => p.RelationFirstHalf).WithOne(b => b.RelationSecondHalf).HasForeignKey<RelationSecondHalf>(p => p.IDRelationFH).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности RelationFirstHalf
-            modelBuilder.Entity<RelationFirstHalf>().HasOne<RelationSecondHalf>(p => p.RelationSecondHalf).WithOne(b => b.RelationFirstHalf).HasForeignKey<RelationSecondHalf>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<RelationFirstHalf>().HasOne<Question>(p => p.Question).WithOne(b => b.RelationFirstHalfs).HasForeignKey<RelationFirstHalf>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
-
+            //modelBuilder.Entity<RelationFirstHalf>().HasOne<RelationSecondHalf>(p => p.RelationSecondHalf).WithOne(b => b.RelationFirstHalf).HasForeignKey<RelationSecondHalf>(p => p.IDRelationFH).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<RelationFirstHalf>().HasOne(p => p.Question).WithMany(b => b.RelationFirstHalfs).HasForeignKey(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+           
             //Описание связей для сущности QuestionType
             modelBuilder.Entity<QuestionType>().HasMany(p => p.Questions).WithOne(b => b.QuestionType).HasForeignKey(p => p.IDQType).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Question
-            modelBuilder.Entity<Question>().HasOne<ChooseAnswer>(p => p.ChooseAnswers).WithOne(b => b.Question).HasForeignKey<ChooseAnswer>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Question>().HasOne<RelationFirstHalf>(p => p.RelationFirstHalfs).WithOne(b => b.Question).HasForeignKey<RelationFirstHalf>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Question>().HasMany(p => p.ChooseAnswers).WithOne(b => b.Question).HasForeignKey(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Question>().HasMany(p => p.RelationFirstHalfs).WithOne(b => b.Question).HasForeignKey(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Question>().HasOne<InputAnswer>(p => p.InputAnswers).WithOne(b => b.Question).HasForeignKey<InputAnswer>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Question>().HasOne(p => p.QuestionType).WithMany(b => b.Questions).HasForeignKey(p => p.IDQType).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Question>().HasOne(p => p.Theme).WithMany(b => b.Questions).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
@@ -91,15 +90,18 @@ namespace CSharpDB.Context
             modelBuilder.Entity<InputAnswer>().HasOne<Question>(p => p.Question).WithOne(b => b.InputAnswers).HasForeignKey<InputAnswer>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Group
-            modelBuilder.Entity<Group>().HasMany(p => p.UserStudents).WithOne(b => b.Group).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);            
+            modelBuilder.Entity<Group>().HasMany(p => p.UserStudents).WithOne(b => b.Group).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Grade
             modelBuilder.Entity<Grade>().HasMany(p => p.TestResults).WithOne(b => b.Grade).HasForeignKey(p => p.IDGrade).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности ChooseAnswer
-            modelBuilder.Entity<ChooseAnswer>().HasOne<Question>(p => p.Question).WithOne(b => b.ChooseAnswers).HasForeignKey<ChooseAnswer>(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ChooseAnswer>().HasOne(p => p.Question).WithMany(b => b.ChooseAnswers).HasForeignKey(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Test>().Property(p => p.Access).HasDefaultValue(DateTime.Today);
 
             //Начальные данные при создании БД
+            #region start data
             modelBuilder.Entity<Role>().HasData(
                 new Role[]
                 {
@@ -141,6 +143,19 @@ namespace CSharpDB.Context
                     new QuestionType { IDQuestionType=2, TextType="Развернутый"},
                     new QuestionType { IDQuestionType=3, TextType="Парное сопоставление" }
                 });
+            modelBuilder.Entity<Theme>().HasData(
+                new Theme[]
+                {
+                    new Theme { IDTheme=1, TextTheme="-"},
+                    new Theme { IDTheme=2, TextTheme="Первая тема"},
+                    new Theme { IDTheme=3, TextTheme="Вторая тема"}
+                });
+            modelBuilder.Entity<Test>().HasData(
+                new Test[]
+                {
+                    new Test {IDTest=1, TestName="-", QuestionCount=1, Time=5, Access=new DateTime(2020,03,15,8,0,0)}
+                });
+            #endregion
         }
     }
 }
