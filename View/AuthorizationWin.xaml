@@ -21,6 +21,32 @@
     mc:Ignorable="d">
 
     <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border
+                Name="border"
+                BorderBrush="Orange"
+                BorderThickness="2"
+                CornerRadius="2"
+                TextBlock.Foreground="White">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="LimeGreen" />
+                            <GradientStop Offset="1" Color="LightBlue" />
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentPresenter Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="Background" Value="Red" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="border" Property="BorderBrush" Value="Yellow" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <Style x:Key="ButtonStyle1">
             <!--<Style.Triggers>
                 <Trigger Property="Button.IsMouseOver" Value="true">
@@ -111,6 +137,7 @@
             Margin="102,110,0,20"
             Click="buttonEnterGuest_Click"
             Content="Войти как Гость"
-            Style="{StaticResource ButtonStyle2}" />
+            Style="{StaticResource ButtonStyle2}"
+            Template="{StaticResource ButtonTemplate}" />
     </Grid>
 </Window>

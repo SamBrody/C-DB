@@ -21,6 +21,13 @@
             <Setter Property="FontWeight" Value="Normal" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Mode=OneWay}" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style TargetType="DataGridRow">
             <Setter Property="Foreground" Value="#FFC5C5C5" />
@@ -60,7 +67,7 @@
             IsReadOnly="True"
             ItemsSource="{Binding UserStudents}">
             <DataGrid.Columns>
-                <DataGridTextColumn
+                <!--<DataGridTextColumn
                     Width="0.4*"
                     Binding="{Binding ID}"
                     Header="ID">
@@ -69,7 +76,7 @@
                             <Setter Property="TextWrapping" Value="Wrap" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                </DataGridTextColumn>-->
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding FirstName}"
@@ -124,10 +131,7 @@
                 Text="{Binding Path=LastName}"
                 TextAlignment="Justify">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyUp">
-                        <i:InvokeCommandAction Command="{Binding SearchOnLastName}" CommandParameter="{Binding ElementName=textBoxLastNameSearch, Path=Text}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="KeyDown">
+                    <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction Command="{Binding SearchOnLastName}" CommandParameter="{Binding ElementName=textBoxLastNameSearch, Path=Text}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -153,10 +157,7 @@
                 Text="{Binding Path=FirstName}"
                 TextAlignment="Justify">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyUp">
-                        <i:InvokeCommandAction Command="{Binding SearchOnFirstName}" CommandParameter="{Binding ElementName=textBoxFirstNameSearch, Path=Text}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="KeyDown">
+                    <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction Command="{Binding SearchOnFirstName}" CommandParameter="{Binding ElementName=textBoxFirstNameSearch, Path=Text}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

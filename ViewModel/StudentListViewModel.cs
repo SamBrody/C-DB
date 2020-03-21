@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Data;
 using System.Windows;
+using CSharpProjCore.View;
 
 namespace CSharpProjCore.ViewModel
 {
@@ -169,7 +170,7 @@ namespace CSharpProjCore.ViewModel
             if (CBindex >= 0)
             {
                 var student = (from st in db.UserStudents
-                               where st.LastName.Contains(lastname) && st.IDGroup == CBindex + 1
+                               where st.LastName.ToUpper().Contains(lastname.ToUpper())  && st.IDGroup == CBindex + 1
                                join gr in db.Groups on st.IDGroup equals gr.IDGroup
                                select new
                                {
@@ -184,7 +185,7 @@ namespace CSharpProjCore.ViewModel
             else
             {
                 var student = (from st in db.UserStudents
-                               where st.LastName.Contains(lastname)
+                               where st.LastName.ToUpper().Contains(lastname.ToUpper())
                                join gr in db.Groups on st.IDGroup equals gr.IDGroup
                                select new
                                {
@@ -203,7 +204,7 @@ namespace CSharpProjCore.ViewModel
             if (CBindex >= 0)
             {
                 var student = (from st in db.UserStudents
-                               where st.FirstName.Contains(firstname) && st.IDGroup == CBindex + 1
+                               where st.FirstName.ToUpper().Contains(firstname.ToUpper()) && st.IDGroup == CBindex + 1
                                join gr in db.Groups on st.IDGroup equals gr.IDGroup
                                select new
                                {
@@ -218,7 +219,7 @@ namespace CSharpProjCore.ViewModel
             else
             {
                 var student = (from st in db.UserStudents
-                               where st.FirstName.Contains(firstname)
+                               where st.FirstName.ToUpper().Contains(firstname.ToUpper())
                                join gr in db.Groups on st.IDGroup equals gr.IDGroup
                                select new
                                {

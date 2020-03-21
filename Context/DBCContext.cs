@@ -1,6 +1,7 @@
 ﻿using CSharpDB.Model;
 using CSharpProjCore.Model;
 using Microsoft.EntityFrameworkCore;
+using System;
 //using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace CSharpDB.Context
@@ -54,15 +55,13 @@ namespace CSharpDB.Context
 
             //Описание связей для сущности Theme
             modelBuilder.Entity<Theme>().HasMany(p => p.Questions).WithOne(b => b.Theme).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Theme>().HasMany(p => p.Tests).WithOne(b => b.Theme).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности TestResults
             modelBuilder.Entity<TestResults>().HasOne(p => p.UserProfile).WithMany(b => b.TestResults).HasForeignKey(p => p.IDUserProfile).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<TestResults>().HasOne(p => p.Grade).WithMany(b => b.TestResults).HasForeignKey(p => p.IDGrade).OnDelete(DeleteBehavior.Cascade);
+           // modelBuilder.Entity<TestResults>().HasOne(p => p.Grade).WithMany(b => b.TestResults).HasForeignKey(p => p.IDGrade).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<TestResults>().HasOne(p => p.Test).WithMany(b => b.TestResults).HasForeignKey(p => p.IDTest).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Test
-            modelBuilder.Entity<Test>().HasOne(p => p.Theme).WithMany(b => b.Tests).HasForeignKey(p => p.IDTheme).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Test>().HasMany(p => p.Questions).WithOne(b => b.Test).HasForeignKey(p => p.IDTest).OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Test>().HasMany(p => p.TestResults).WithOne(b => b.Test).HasForeignKey(p => p.IDTest).OnDelete(DeleteBehavior.Cascade);
 
@@ -94,10 +93,12 @@ namespace CSharpDB.Context
             modelBuilder.Entity<Group>().HasMany(p => p.UserStudents).WithOne(b => b.Group).HasForeignKey(p => p.IDGroup).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности Grade
-            modelBuilder.Entity<Grade>().HasMany(p => p.TestResults).WithOne(b => b.Grade).HasForeignKey(p => p.IDGrade).OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Grade>().HasMany(p => p.TestResults).WithOne(b => b.Grade).HasForeignKey(p => p.IDGrade).OnDelete(DeleteBehavior.Cascade);
 
             //Описание связей для сущности ChooseAnswer
             modelBuilder.Entity<ChooseAnswer>().HasOne(p => p.Question).WithMany(b => b.ChooseAnswers).HasForeignKey(p => p.IDQuestion).OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Test>().Property(p => p.Access).HasDefaultValue(DateTime.Today);
 
             //Начальные данные при создании БД
             #region start data
@@ -113,13 +114,15 @@ namespace CSharpDB.Context
                 new User[]
                 {
                     new User {IDUser=1,IDRole=1,Login="defTeacher", Password="17def02t20"},
-                    new User {IDUser=2,IDRole=2,Login="defStudent", Password="student"}
+                    new User {IDUser=2,IDRole=2,Login="defStudent", Password="student"},
+                    new User {IDUser=3,IDRole=3,Login="ГОСТЬ", Password=""}
                 });
 
             modelBuilder.Entity<UserProfile>().HasData(
                 new UserProfile[]
                 {
-                    new UserProfile {IDUser=1,FirstName="teacher_f", LastName="teacher_l"}
+                    new UserProfile {IDUser=1,FirstName="teacher_f", LastName="teacher_l"},
+                    new UserProfile {IDUser=3,FirstName="guest", LastName="guest"}
                 });
 
             modelBuilder.Entity<UserStudent>().HasData(
@@ -152,7 +155,7 @@ namespace CSharpDB.Context
             modelBuilder.Entity<Test>().HasData(
                 new Test[]
                 {
-                    new Test {IDTest=1,IDTheme=1, TestName="-"}
+                    new Test {IDTest=1, TestName="-", QuestionCount=1, Time=5, Access=new DateTime(2020,03,15,8,0,0)}
                 });
             #endregion
         }

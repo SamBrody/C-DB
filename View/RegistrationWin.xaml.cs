@@ -77,44 +77,51 @@ namespace CSharpProjCore.View
             }
             else
             {
-                if ((passwordBoxPassword.Password == passwordBoxPasswordrepeat.Password) && (passwordBoxPassword.Password != "") && (passwordBoxPasswordrepeat.Password != ""))
+                if (textBoxLogin.Text.ToUpper() == "ГОСТЬ")
                 {
-                    var authoriz = from p in db.Users
-                                   where p.Login == textBoxLogin.Text
-                                   select p;
-                    if (authoriz.Count() > 0)
-                    {
-                        MessageBox.Show("Введеный Логин уже занять.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return (false);
-                    }
-                    else
-                    {
-                        try
-                        {
-
-                            User u1 = new User { Login = textBoxLogin.Text, Password = passwordBoxPassword.Password, IDRole = 2 };
-                            db.Users.Add(u1);
-                            UserStudent uS1 = new UserStudent { IDUser = u1.IDUser, FirstName = textBoxFName.Text, LastName = textBoxLName.Text, IDGroup = GetGroupID(comboBoxGroup.SelectedValue) };
-
-                            db.UserStudents.Add(uS1);
-                            db.SaveChanges();
-                            MessageBox.Show("Регистрация прошла успешно!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                            return (true);
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                            return (false);
-                        }
-                    }
+                    MessageBox.Show("Данный логин нельзя использовать!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return (false);
                 }
                 else
                 {
-                    MessageBox.Show("Введеные пароли не совпадают! Пожалуйста, убедитесь в правильности ввода паролей.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return (false);
-                }
+                    if ((passwordBoxPassword.Password == passwordBoxPasswordrepeat.Password) && (passwordBoxPassword.Password != "") && (passwordBoxPasswordrepeat.Password != ""))
+                    {
+                        var authoriz = from p in db.Users
+                                       where p.Login == textBoxLogin.Text
+                                       select p;
+                        if (authoriz.Count() > 0)
+                        {
+                            MessageBox.Show("Введеный Логин уже занять.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return (false);
+                        }
+                        else
+                        {
+                            try
+                            {
 
-            }
+                                User u1 = new User { Login = textBoxLogin.Text, Password = passwordBoxPassword.Password, IDRole = 2 };
+                                db.Users.Add(u1);
+                                UserStudent uS1 = new UserStudent { IDUser = u1.IDUser, FirstName = textBoxFName.Text, LastName = textBoxLName.Text, IDGroup = GetGroupID(comboBoxGroup.SelectedValue) };
+
+                                db.UserStudents.Add(uS1);
+                                db.SaveChanges();
+                                MessageBox.Show("Регистрация прошла успешно!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                                return (true);
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return (false);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введеные пароли не совпадают! Пожалуйста, убедитесь в правильности ввода паролей.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return (false);
+                    }
+                }
+            }            
         }
         private int GetGroupID(object selectedValue)
         {

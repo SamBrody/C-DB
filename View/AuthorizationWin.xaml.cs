@@ -92,7 +92,7 @@ namespace CSharpProjCore.View
 
         private void buttonEnterGuest_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Вы вошли как Гость!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Вы вошли как ГОСТЬ!", "", MessageBoxButton.OK, MessageBoxImage.Information);
             string login = "Гость";
             MainWindow mainWindow = new MainWindow(login);
             mainWindow.Show();

@@ -13,7 +13,18 @@
     ShowsNavigationUI="False"
     mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="GotFocus">
+            <i:InvokeCommandAction Command="{Binding UpdatePageCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Page.Resources>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="#FFC5C5C5" />
+            <Setter Property="Background" Value="#FF202022" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Foreground" Value="#FFC5C5C5" />
             <Setter Property="Background" Value="#FF202022" />
@@ -21,6 +32,13 @@
             <Setter Property="FontWeight" Value="Normal" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Mode=OneWay}" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style TargetType="DataGridRow">
             <Setter Property="Foreground" Value="#FFC5C5C5" />
@@ -36,7 +54,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="300" />
-            <ColumnDefinition Width="200" MinWidth="200" />
+            <ColumnDefinition Width="215" MinWidth="200" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MinHeight="160" />
@@ -56,7 +74,7 @@
             FontSize="18"
             Foreground="#FFC5C5C5"
             HorizontalScrollBarVisibility="Auto"
-            IsReadOnly="False"
+            IsReadOnly="True"
             ItemsSource="{Binding QuestionList}"
             SelectedIndex="{Binding SelectedIndexQ}"
             SelectedItem="{Binding SelectedItemQ}">
@@ -66,10 +84,10 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    Width="0.4*"
+                <!--<DataGridTextColumn
+                    Width="0.6*"
                     Binding="{Binding ID}"
-                    Header="ID" />
+                    Header="ID" />-->
                 <DataGridTextColumn
                     Width="2*"
                     Binding="{Binding TaskText}"
@@ -81,7 +99,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn
-                    Width="*"
+                    Width="2*"
                     Binding="{Binding Theme}"
                     Header="Тема">
                     <DataGridTextColumn.ElementStyle>
@@ -91,7 +109,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn
-                    Width="*"
+                    Width="2*"
                     Binding="{Binding Test}"
                     Header="Тест">
                     <DataGridTextColumn.ElementStyle>
@@ -101,7 +119,7 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn
-                    Width="1.4*"
+                    Width="2*"
                     Binding="{Binding QuestionType}"
                     Header="Тип вопроса">
                     <DataGridTextColumn.ElementStyle>
@@ -126,12 +144,13 @@
                 FontSize="18"
                 Foreground="#FFC5C5C5"
                 HorizontalScrollBarVisibility="Disabled"
+                IsReadOnly="True"
                 ItemsSource="{Binding Path=AnswerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding Path=SelectedItemChoose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 VerticalScrollBarVisibility="Auto"
                 Visibility="{Binding RelationAnswerVis}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn
+                    <!--<DataGridTextColumn
                         Width="0.2*"
                         Binding="{Binding ID}"
                         Header="ID">
@@ -140,7 +159,7 @@
                                 <Setter Property="TextWrapping" Value="Wrap" />
                             </Style>
                         </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                    </DataGridTextColumn>-->
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding TextLeft}"
@@ -176,12 +195,13 @@
                 FontSize="18"
                 Foreground="#FFC5C5C5"
                 HorizontalScrollBarVisibility="Disabled"
+                IsReadOnly="True"
                 ItemsSource="{Binding Path=AnswerList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding Path=SelectedItemChoose, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 VerticalScrollBarVisibility="Auto"
                 Visibility="{Binding InputAnswerVis}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn
+                    <!--<DataGridTextColumn
                         Width="0.1*"
                         Binding="{Binding ID}"
                         Header="ID">
@@ -190,7 +210,7 @@
                                 <Setter Property="TextWrapping" Value="Wrap" />
                             </Style>
                         </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                    </DataGridTextColumn>-->
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding AnswerText}"
@@ -222,7 +242,7 @@
                 VerticalScrollBarVisibility="Auto"
                 Visibility="{Binding ChooseAnswerVis}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn
+                    <!--<DataGridTextColumn
                         Width="0.5*"
                         Binding="{Binding IDChooseAnswer}"
                         Header="ID">
@@ -231,7 +251,7 @@
                                 <Setter Property="TextWrapping" Value="Wrap" />
                             </Style>
                         </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                    </DataGridTextColumn>-->
                     <DataGridTextColumn
                         Width="4.5*"
                         Binding="{Binding AnswerText}"
@@ -249,27 +269,80 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-
         <StackPanel Grid.RowSpan="2" Grid.Column="1">
+            <Label
+                Width="Auto"
+                Height="35"
+                Margin="10,10,5,10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Поиск по тесту:"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <ComboBox
+                x:Name="comboBoxTestNameSearch"
+                Width="Auto"
+                Height="40"
+                Margin="10,10,5,10"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                DisplayMemberPath="TestName"
+                FontSize="18"
+                Foreground="#FFC5C5C5"
+                IsReadOnly="True"
+                ItemsSource="{Binding TestsView}"
+                SelectedIndex="{Binding CBindex}"
+                SelectedItem="{Binding SelectedItemCB}"
+                SelectedValuePath="IDTest">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SearchOnTestName}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
             <Button
-                Margin="5,10,10,10"
+                x:Name="buttonCancelFilt"
+                Height="35"
+                Margin="10,10,5,10"
                 HorizontalAlignment="Stretch"
                 Background="#FF202022"
                 BorderBrush="{x:Null}"
-                Command="{Binding AddCommand}"
-                CommandParameter="{Binding ElementName=datagridQuestionList, Path=SelectedItem}"
-                Content="Обновить"
-                FontSize="14"
+                Command="{Binding ClearDataCommand}"
+                Content="Сбросить фильтры"
+                FontSize="18"
                 Foreground="#FFC5C5C5" />
             <Button
-                Margin="5,10,10,10"
+                Height="35"
+                Margin="10,10,5,10"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Command="{Binding UpdateDataGCommand}"
+                CommandParameter="{Binding ElementName=datagridQuestionList, Path=SelectedItem}"
+                Content="Обновить данные"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <Button
+                Height="35"
+                Margin="10,50,5,10"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Click="Button_Click"
+                Command="{Binding GoToEditer}"
+                Content="Редактировать"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <Button
+                Height="35"
+                Margin="10,10,5,10"
                 HorizontalAlignment="Stretch"
                 Background="#FF202022"
                 BorderBrush="{x:Null}"
                 Command="{Binding DeleteCommand}"
                 CommandParameter="{Binding ElementName=datagridQuestionList, Path=SelectedItem}"
                 Content="Удалить"
-                FontSize="14"
+                FontSize="18"
                 Foreground="#FFC5C5C5" />
         </StackPanel>
         <GridSplitter

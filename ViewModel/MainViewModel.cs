@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpProjCore.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -21,10 +22,34 @@ namespace CSharpProjCore.ViewModel
         RelayCommand closeMenuCommand;
         RelayCommand navigateToStudentList;
         RelayCommand navigateToQuestionAdd;
+        RelayCommand navigateTTestResultView;
         RelayCommand navigateToDBook;
         RelayCommand exitCommand;
         RelayCommand navigateToQuestionListView;
+        RelayCommand navigateToTest;
 
+        public RelayCommand NavigateToTest
+        {
+            get
+            {
+                return navigateToTest ??
+                  (navigateToTest = new RelayCommand((o) =>
+                  {                      
+                      ViewSource = new TestView(o.ToString());
+                  }));
+            }
+        }
+        public RelayCommand NavigateTTestResultView
+        {
+            get
+            {
+                return navigateTTestResultView ??
+                  (navigateTTestResultView = new RelayCommand((o) =>
+                  {                      
+                      ViewSource = new TestResult();
+                  }));
+            }
+        }
         public RelayCommand NavigateToQuestionAdd
         {
             get
@@ -32,7 +57,7 @@ namespace CSharpProjCore.ViewModel
                 return navigateToQuestionAdd ??
                   (navigateToQuestionAdd = new RelayCommand((o) =>
                   {
-                      ViewSource = "AddQuestion.xaml";
+                      ViewSource = new AddQuestion();
                   }));
             }
         }
@@ -70,7 +95,7 @@ namespace CSharpProjCore.ViewModel
                 return navigateToDBook ??
                     (navigateToDBook = new RelayCommand((o) =>
                     {
-                        ViewSource = "DBook.xaml";
+                        ViewSource = new DBook();
                     }));
             }
         }
@@ -81,7 +106,7 @@ namespace CSharpProjCore.ViewModel
                 return navigateToStudentList ??
                   (navigateToStudentList = new RelayCommand((o) =>
                   {
-                      ViewSource = "StudentList.xaml";
+                      ViewSource = new StudentList();
                   }));
             }
         }
@@ -104,15 +129,15 @@ namespace CSharpProjCore.ViewModel
                 return navigateToQuestionListView ??
                   (navigateToQuestionListView = new RelayCommand((o) =>
                   {
-                      ViewSource = "QuestionListView.xaml";
+                      ViewSource = new QuestionListView();
                   }));
             }
         }
         #endregion
 
         #region Properties
-        private string viewSource;
-        public string ViewSource
+        private object viewSource;
+        public object ViewSource
         {
             get { return viewSource; }
             set
@@ -121,6 +146,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("ViewSource");
             }
         }
+
         private string visibilityOpenMenu;
         public string VisibilityOpenMenu
         {
@@ -131,6 +157,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("VisibilityOpenMenu");
             }
         }
+
         private string visibilityCloseMenu;
         public string VisibilityCloseMenu
         {
@@ -141,6 +168,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("VisibilityCloseMenu");
             }
         }
+
         private bool selectedTheory;
         public bool SelectedTheory
         {
@@ -151,12 +179,23 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("SelectedTheory");
             }
         }
+
+        private string userNameText;
+        public string UserNameText
+        {
+            get { return userNameText; }
+            set
+            {
+                userNameText = value;
+                OnPropertyChanged("UserNameText");
+            }
+        }
         #endregion
 
         #region Methods
         private void SetBaseValue()
         {
-            ViewSource = "DBook.xaml";
+            ViewSource = new DBook();
             SelectedTheory = true;
             VisibilityCloseMenu = "Collapsed";
             VisibilityOpenMenu = "Visible";

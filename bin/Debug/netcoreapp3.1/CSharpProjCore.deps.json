@@ -8,9 +8,14 @@
     ".NETCoreApp,Version=v3.1": {
       "CSharpProjCore/1.0.0": {
         "dependencies": {
+          "Extended.Wpf.Toolkit": "3.8.1",
+          "JetBrains.Annotations": "2019.1.3",
           "MaterialDesignColors": "1.2.2",
           "MaterialDesignThemes": "3.0.1",
           "Microsoft.EntityFrameworkCore": "2.2.6",
+          "MvvmNavigation.Abstractions": "3.2.0",
+          "MvvmNavigation.Core": "3.2.0",
+          "MvvmNavigation.Wpf": "3.2.0",
           "Pomelo.EntityFrameworkCore.MySql": "2.2.6",
           "Prism.Wpf": "7.2.0.1422"
         },
@@ -23,6 +28,73 @@
           "lib/netcoreapp2.0/CommonServiceLocator.dll": {
             "assemblyVersion": "2.0.4.0",
             "fileVersion": "2.0.4.0"
+          }
+        }
+      },
+      "Extended.Wpf.Toolkit/3.8.1": {
+        "runtime": {
+          "lib/net40/Xceed.Wpf.AvalonDock.Themes.Aero.dll": {
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
+          },
+          "lib/net40/Xceed.Wpf.AvalonDock.Themes.Metro.dll": {
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
+          },
+          "lib/net40/Xceed.Wpf.AvalonDock.Themes.VS2010.dll": {
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
+          },
+          "lib/net40/Xceed.Wpf.AvalonDock.dll": {
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
+          },
+          "lib/net40/Xceed.Wpf.Toolkit.dll": {
+            "assemblyVersion": "3.8.0.0",
+            "fileVersion": "3.8.0.0"
+          }
+        },
+        "resources": {
+          "lib/net40/cs-CZ/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "cs-CZ"
+          },
+          "lib/net40/de/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net40/es/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net40/fr/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net40/hu/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net40/it/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net40/pt-BR/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net40/ro/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net40/ru/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net40/sv/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net40/zh-Hans/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "zh-Hans"
+          }
+        }
+      },
+      "JetBrains.Annotations/2019.1.3": {
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {
+            "assemblyVersion": "2019.1.3.0",
+            "fileVersion": "2019.1.3.0"
           }
         }
       },
@@ -211,6 +283,46 @@
       },
       "Microsoft.NETCore.Platforms/1.0.1": {},
       "Microsoft.NETCore.Targets/1.0.1": {},
+      "MvvmNavigation.Abstractions/3.2.0": {
+        "dependencies": {
+          "JetBrains.Annotations": "2019.1.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MvvmNavigation.Abstractions.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.177"
+          }
+        }
+      },
+      "MvvmNavigation.Core/3.2.0": {
+        "dependencies": {
+          "JetBrains.Annotations": "2019.1.3",
+          "MvvmNavigation.Abstractions": "3.2.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MvvmNavigation.Core.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.177"
+          }
+        }
+      },
+      "MvvmNavigation.Wpf/3.2.0": {
+        "dependencies": {
+          "JetBrains.Annotations": "2019.1.3",
+          "MvvmNavigation.Abstractions": "3.2.0",
+          "MvvmNavigation.Core": "3.2.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/MvvmNavigation.Internal.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.177"
+          },
+          "lib/netcoreapp3.0/MvvmNavigation.Wpf.dll": {
+            "assemblyVersion": "3.2.0.0",
+            "fileVersion": "3.2.0.177"
+          }
+        }
+      },
       "MySqlConnector/0.59.2": {
         "runtime": {
           "lib/netcoreapp3.0/MySqlConnector.dll": {
@@ -502,6 +614,20 @@
       "path": "commonservicelocator/2.0.4",
       "hashPath": "commonservicelocator.2.0.4.nupkg.sha512"
     },
+    "Extended.Wpf.Toolkit/3.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eSD4/BY/xV29KaQi9A65VscpeU3rSrlvadIUepSx5ukeUajW3ph8+n4AlOswRMszbD4DDmrJ4g5O51bCUpiOjw==",
+      "path": "extended.wpf.toolkit/3.8.1",
+      "hashPath": "extended.wpf.toolkit.3.8.1.nupkg.sha512"
+    },
+    "JetBrains.Annotations/2019.1.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E0x48BwZJKoNMNCekWGKsV4saQS89lf58ydT2szseV44CMYIbaHXjc7+305WLw6up3ibZN9yH6QdGSZo5tQhLg==",
+      "path": "jetbrains.annotations/2019.1.3",
+      "hashPath": "jetbrains.annotations.2019.1.3.nupkg.sha512"
+    },
     "MaterialDesignColors/1.2.2": {
       "type": "package",
       "serviceable": true,
@@ -641,6 +767,27 @@
       "sha512": "sha512-rkn+fKobF/cbWfnnfBOQHKVKIOpxMZBvlSHkqDWgBpwGDcLRduvs3D9OLGeV6GWGvVwNlVi2CBbTjuPmtHvyNw==",
       "path": "microsoft.netcore.targets/1.0.1",
       "hashPath": "microsoft.netcore.targets.1.0.1.nupkg.sha512"
+    },
+    "MvvmNavigation.Abstractions/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JbxN2+gZGr7V3/VHRQ9QyRcZU2RFFIQk5/ZXZsTC6iVR4fxmNBiu8s9El0vJn02IddBN3HZPBfecWJdVyp1c3Q==",
+      "path": "mvvmnavigation.abstractions/3.2.0",
+      "hashPath": "mvvmnavigation.abstractions.3.2.0.nupkg.sha512"
+    },
+    "MvvmNavigation.Core/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SHNgTJFzsFXgFCmlz+5TYtAjtvvjUzMoA3D7tdKtRNvvDLJzovLxWL6sMCBn2KGj4Y6Y5LHs2IKF9zBgWYKfyw==",
+      "path": "mvvmnavigation.core/3.2.0",
+      "hashPath": "mvvmnavigation.core.3.2.0.nupkg.sha512"
+    },
+    "MvvmNavigation.Wpf/3.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WDWY8S2zSP+lo0rtH/DHCqreZXFV+8RPE6ziycm7Y20Y7346ZOcXJiq5ia7DmIU6jmU4sFs0eBQWhSZ9DEHpRQ==",
+      "path": "mvvmnavigation.wpf/3.2.0",
+      "hashPath": "mvvmnavigation.wpf.3.2.0.nupkg.sha512"
     },
     "MySqlConnector/0.59.2": {
       "type": "package",

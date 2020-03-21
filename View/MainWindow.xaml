@@ -6,6 +6,7 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="mainwin"
     Title="ЭСУН C# DataBase"
     Width="1024"
     Height="768"
@@ -14,6 +15,7 @@
     Background="#FF2C2E36"
     BorderBrush="#007acc"
     BorderThickness="1"
+    Deactivated="mainwin_Deactivated"
     WindowStartupLocation="CenterScreen"
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
@@ -79,7 +81,8 @@
                     x:Name="textBlockUSERNAME"
                     VerticalAlignment="Center"
                     FontSize="18"
-                    Foreground="#FFC5C5C5" />
+                    Foreground="#FFC5C5C5"
+                    Text="{Binding UserNameText}" />
                 <materialDesign:PopupBox
                     Margin="10"
                     Foreground="#FFC5C5C5"
@@ -104,8 +107,8 @@
         <Frame
             x:Name="frameMainWindow"
             Margin="60,50,0,0"
-            NavigationUIVisibility="Hidden"
-            Source="{Binding ViewSource}" />
+            Content="{Binding ViewSource}"
+            NavigationUIVisibility="Hidden" />
         <Grid
             x:Name="GridMenu"
             Grid.RowSpan="2"
@@ -178,14 +181,19 @@
                                 Width="25"
                                 Margin="10"
                                 VerticalAlignment="Center"
-                                Kind="BookOpenOutline" />
+                                Kind="BookOpenPageVariant" />
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Теория" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem
                         x:Name="ListViewTest"
                         Height="60"
-                        IsEnabled="False">
+                        IsEnabled="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigateToTest}" CommandParameter="{Binding ElementName=textBlockUSERNAME, Path=Text}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon
                                 Width="25"
@@ -193,6 +201,21 @@
                                 VerticalAlignment="Center"
                                 Kind="CheckBox" />
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Тестирование" />
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="ListViewTestResultList" Height="60">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigateTTestResultView}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="25"
+                                Margin="10"
+                                VerticalAlignment="Center"
+                                Kind="ClipboardList" />
+                            <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Результаты тестов" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="ListViewStudentList" Height="60">
@@ -206,7 +229,7 @@
                                 Width="25"
                                 Margin="10"
                                 VerticalAlignment="Center"
-                                Kind="Contacts" />
+                                Kind="Users" />
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список студентов" />
                         </StackPanel>
                     </ListViewItem>

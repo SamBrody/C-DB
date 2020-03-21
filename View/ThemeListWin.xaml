@@ -6,7 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local="clr-namespace:CSharpProjCore.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Список групп"
+    Title="Список тем"
     Width="450"
     Height="300"
     MinWidth="500"
@@ -28,6 +28,13 @@
             <Setter Property="FontWeight" Value="Normal" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="Margin" Value="5,5,5,5" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Mode=OneWay}" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style TargetType="DataGridRow">
             <Setter Property="Foreground" Value="#FFC5C5C5" />
@@ -44,15 +51,16 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.6*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <DataGrid
-            x:Name="datagridGroupList"
+            x:Name="datagridThemeList"
             Grid.Row="0"
-            Grid.Column="0"
+            Grid.ColumnSpan="2"
             Width="Auto"
             Margin="10"
             AutoGenerateColumns="False"
@@ -68,16 +76,37 @@
             ItemsSource="{Binding Path=ThemeView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn
+                <!--<DataGridTextColumn
                     Width="*"
                     Binding="{Binding IDTheme}"
-                    Header="ID" />
+                    Header="ID" />-->
                 <DataGridTextColumn
                     Width="4.5*"
                     Binding="{Binding TextTheme}"
-                    Header="Тема" />
+                    Header="Название темы">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Orientation="Vertical">
+            <Button
+                Margin="5,10,10,10"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Command="{Binding AddCommand}"
+                CommandParameter="{Binding ElementName=datagridThemeList, Path=SelectedItem}"
+                Content="Добавить/Обновить"
+                FontSize="14"
+                Foreground="#FFC5C5C5" />
+        </StackPanel>
         <StackPanel
             Grid.Row="1"
             Grid.Column="1"
@@ -87,18 +116,8 @@
                 HorizontalAlignment="Stretch"
                 Background="#FF202022"
                 BorderBrush="{x:Null}"
-                Command="{Binding AddCommand}"
-                CommandParameter="{Binding ElementName=datagridGroupList, Path=SelectedItem}"
-                Content="Добавить/Обновить"
-                FontSize="14"
-                Foreground="#FFC5C5C5" />
-            <Button
-                Margin="5,10,10,10"
-                HorizontalAlignment="Stretch"
-                Background="#FF202022"
-                BorderBrush="{x:Null}"
                 Command="{Binding DeleteCommand}"
-                CommandParameter="{Binding ElementName=datagridGroupList, Path=SelectedItem}"
+                CommandParameter="{Binding ElementName=datagridThemeList, Path=SelectedItem}"
                 Content="Удалить тему"
                 FontSize="14"
                 Foreground="#FFC5C5C5" />

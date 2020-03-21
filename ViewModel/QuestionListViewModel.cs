@@ -15,37 +15,21 @@ namespace CSharpProjCore.ViewModel
         #region Constructor
         public QuestionListViewModel()
         {
-            SetDataGrid();
+            SetDataGrid(null);
             SetStartValue();
+            ComboBoxTestSet();
+            SetCBIndex();
         }       
         #endregion
 
         #region Commands
-        RelayCommand setAnswerCommand;
-        RelayCommand addCommand;
+        RelayCommand setAnswerCommand;        
         RelayCommand deleteCommand;
+        RelayCommand searchOnTestName;
+        RelayCommand clearDataCommand;
+        RelayCommand updatePageCommand;
+        RelayCommand updateDataGCommand;
 
-        // команда добавления
-        public RelayCommand AddCommand
-        {
-            get
-            {
-                return addCommand ??
-                  (addCommand = new RelayCommand((selectedItem) =>
-                  {
-                      if (selectedItem == null) return;
-                      try
-                      {
-                          db.SaveChanges();
-                          MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                      }
-                      catch (Exception e)
-                      {
-                          MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                      }
-                  }));
-            }
-        }
         // команда удаления
         public RelayCommand DeleteCommand
         {
@@ -64,13 +48,60 @@ namespace CSharpProjCore.ViewModel
                           else AnswerList.Clear();
                           SetStartValue();
                           db.SaveChanges();
-                          SetDataGrid();
+                          SetDataGrid(null);
                           MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                      }
                     catch (Exception e)
                     {
                           MessageBox.Show($"Возникло исключение -\n {e}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                  }));
+            }
+        }
+
+        public RelayCommand ClearDataCommand
+        {
+            get
+            {
+                return clearDataCommand ??
+                  (clearDataCommand = new RelayCommand((o) =>
+                  {                      
+                      SetCBIndex();
+                      SetDataGrid(null);                      
+                  }));
+            }
+        }
+
+        public RelayCommand UpdatePageCommand
+        {
+            get
+            {
+                return updatePageCommand ??
+                  (updatePageCommand = new RelayCommand((o) =>
+                  {
+                      ComboBoxTestSet();                         
+                  }));
+            }
+        }
+        public RelayCommand UpdateDataGCommand
+        {
+            get
+            {
+                return updateDataGCommand ??
+                  (updateDataGCommand = new RelayCommand((o) =>
+                  {
+                      QuestionList.Clear();
+                      if (AnswerList!=null) AnswerList.Clear();
+                      if (ChooseAnswers != null) ChooseAnswers.Clear();
+                      SetCBIndex();
+                      if (o == null)
+                      {                         
+                          SetDataGrid(null);
+                      }
+                      else
+                      {
+                          SetDataGrid(o.ToString());
+                      }                      
                   }));
             }
         }
@@ -81,7 +112,22 @@ namespace CSharpProjCore.ViewModel
                 return setAnswerCommand ??
                   (setAnswerCommand = new RelayCommand((o) =>
                   {
-                      if (o!=null) SetAnswer(o.ToString());
+                      if (o != null)
+                      {
+                          if (o != null) SetAnswer(o.ToString());
+                      }
+                  }));
+            }
+        }
+
+        public RelayCommand SearchOnTestName
+        {
+            get
+            {
+                return searchOnTestName ??
+                  (searchOnTestName = new RelayCommand((o) =>
+                  {
+                      SearchTestName();                     
                   }));
             }
         }
@@ -89,6 +135,28 @@ namespace CSharpProjCore.ViewModel
         #endregion
 
         #region Properties
+        private int cbIndex;
+        public int CBindex
+        {
+            get { return cbIndex; }
+            set
+            {
+                cbIndex = value;
+                OnPropertyChanged("CBindex");
+            }
+        }
+
+        private Test selectedItemCB = new Test();
+        public Test SelectedItemCB
+        {
+            get { return selectedItemCB; }
+            set
+            {
+                selectedItemCB = value;
+                OnPropertyChanged("SelectedItemCB");
+            }
+        }
+
         private string chooseAnswerVis;
         public string ChooseAnswerVis
         {
@@ -99,6 +167,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("ChooseAnswerVis");
             }
         }
+
         private string relationAnswerVis;
         public string RelationAnswerVis
         {
@@ -109,6 +178,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("RelationAnswerVis");
             }
         }
+
         private string inputAnswerVis;
         public string InputAnswerVis
         {
@@ -119,6 +189,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("InputAnswerVis");
             }
         }
+
         private int selectedIndexQ;
         public int SelectedIndexQ
         {
@@ -129,6 +200,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("SelectedIndexQ");
             }
         }
+
         ObservableCollection<Question> selectedItemQ;
         public ObservableCollection<Question> SelectedItemQ
         {
@@ -139,6 +211,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("SelectedItemQ");
             }
         }
+
         ObservableCollection<ChooseAnswer> chooseAnswers;
         public ObservableCollection<ChooseAnswer> ChooseAnswers
         {
@@ -149,6 +222,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("ChooseAnswers");
             }
         }
+
         ObservableCollection<Object> answerList;
         public ObservableCollection<Object> AnswerList
         {
@@ -159,6 +233,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("AnswerList");
             }
         }
+
         ObservableCollection<Object> questionList;
         public ObservableCollection<Object> QuestionList
         {
@@ -169,6 +244,7 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("QuestionList");
             }
         }
+
         ObservableCollection<Question> questionListCopy;
         public ObservableCollection<Question> QuestionListCopy
         {
@@ -179,11 +255,77 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("QuestionListCopy");
             }
         }
+
+        private ObservableCollection<QuestionType> questionTypes = new ObservableCollection<QuestionType>();
+        public ObservableCollection<QuestionType> QuestionTypesView
+        {
+            get { return questionTypes; }
+            set
+            {
+                questionTypes = value;
+                OnPropertyChanged("QuestionTypesView");
+            }
+        }
+
+        private QuestionType selectedQtype = new QuestionType();
+        public QuestionType SelectedQtype
+        {
+            get { return selectedQtype; }
+            set
+            {
+                selectedQtype = value;
+                OnPropertyChanged("SelectedQtype");
+            }
+        }
+
+        private ObservableCollection<Theme> themes = new ObservableCollection<Theme>();
+        public ObservableCollection<Theme> ThemesView
+        {
+            get { return themes; }
+            set
+            {
+                themes = value;
+                OnPropertyChanged("ThemesView");
+            }
+        }
+
+        private Theme selectedTheme = new Theme();
+        public Theme SelectedTheme
+        {
+            get { return selectedTheme; }
+            set
+            {
+                selectedTheme = value;
+                OnPropertyChanged("SelectedTheme");
+            }
+        }
+
+        private ObservableCollection<Test> tests = new ObservableCollection<Test>();
+        public ObservableCollection<Test> TestsView
+        {
+            get { return tests; }
+            set
+            {
+                tests = value;
+                OnPropertyChanged("TestsView");
+            }
+        }
+
+        private Test selectedTest = new Test();
+        public Test SelectedTest
+        {
+            get { return selectedTest; }
+            set
+            {
+                selectedTest = value;
+                OnPropertyChanged("SelectedTest");
+            }
+        }
         #endregion
 
         #region Methods
-        private void SetDataGrid()
-        {
+        private void SetDataGrid(string o)
+        {            
             db.Questions.Load();
             var question = (from q in db.Questions
                            join qt in db.QuestionTypes on q.IDQType equals qt.IDQuestionType
@@ -194,14 +336,16 @@ namespace CSharpProjCore.ViewModel
                            {
                                ID = q.IDQuestion,
                                TaskText = q.TaskText,
-                               QuestionType = qt.TextType,
                                Theme = th.TextTheme,
-                               Test = te.TestName
+                               Test = te.TestName,
+                               QuestionType = qt.TextType                              
                             }).ToList();
             ObservableCollection<Object> oc = new ObservableCollection<Object>(question);
             QuestionList = oc;
             
             QuestionListCopy = db.Questions.Local.ToObservableCollection();
+
+            if (o != null) SetAnswer(o);
         }
         private void SetStartValue()
         {
@@ -221,7 +365,26 @@ namespace CSharpProjCore.ViewModel
         {
             Question question = db.Questions.Find(id);
             if (question == null) return (0);
-            return(question.IDQType);
+            return (question.IDQType);
+        }
+        private int GetID(string str)
+        {
+            str = str.Remove(0, 7);
+            int i = 0;
+            int start = 0;
+            int count = 0;
+            while (start == 0)
+            {
+                if (str[i] == ',') start = i;
+                else i++;
+            }
+            while (i < str.Length)
+            {
+                count++;
+                i++;
+            }
+            str = str.Remove(start, count);
+            return (Int32.Parse(str));
         }
         private void SetRelationAnswer(int selectedItem)
         {
@@ -259,28 +422,39 @@ namespace CSharpProjCore.ViewModel
             RelationAnswerVis = "Collapsed";
             InputAnswerVis = "Collapsed";
             ChooseAnswerVis = "Visible";
+            db.ChooseAnswers.Load();
             var answer = db.ChooseAnswers.Where(c => c.IDQuestion == selectedItem).ToList();
             ObservableCollection<ChooseAnswer> oc = new ObservableCollection<ChooseAnswer>(answer);
             ChooseAnswers = oc;
         }
-        private int GetID(string str)
+        
+        private void ComboBoxTestSet()
         {
-            str = str.Remove(0,7);
-            int i= 0;
-            int start = 0;
-            int count = 0;
-            while (start==0)
-            {
-                if (str[i] == ',') start = i;
-                else i++;
-            }
-            while (i<str.Length)
-            {
-                count++;
-                i++;
-            }
-            str = str.Remove(start, count);
-            return (Int32.Parse(str));
+            db.Tests.Load();
+            TestsView = db.Tests.Local.ToObservableCollection();            
+        }
+        private void SetCBIndex()
+        {
+            CBindex = -1;
+        }
+        private void SearchTestName()
+        {
+            var student = (from q in db.Questions
+                           where q.IDTest == CBindex + 1
+                           join qt in db.QuestionTypes on q.IDQType equals qt.IDQuestionType
+                           join th in db.Themes on q.IDTheme equals th.IDTheme
+                           join te in db.Tests on q.IDTest equals te.IDTest
+                           orderby q
+                           select new
+                           {
+                               ID = q.IDQuestion,
+                               TaskText = q.TaskText,
+                               Theme = th.TextTheme,
+                               Test = te.TestName,
+                               QuestionType = qt.TextType
+                           }).ToList();
+            ObservableCollection<Object> oc = new ObservableCollection<object>(student);
+            QuestionList = oc;
         }
         #endregion
     }

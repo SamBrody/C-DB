@@ -36,11 +36,5 @@ namespace CSharpProjCore.View
             GroupListWin groupListWin = new GroupListWin();
             groupListWin.Show();
         }
-
-        //private void buttonGroupList_Click(object sender, RoutedEventArgs e)
-        //{
-        //    GroupListWin groupListWin = new GroupListWin();
-        //    groupListWin.Show();
-        //}
     }
 }
