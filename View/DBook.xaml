@@ -65,12 +65,25 @@
                         Foreground="#FFC5C5C5" />
                     <Button
                         x:Name="button1Load"
-                        Command="{Binding GoToTestPage}"
-                        Content="1. Test"
+                        Command="{Binding EnterTCommand}"
+                        Content="Введение. Немного о WPF."
                         Style="{StaticResource ButtonStyle1}" />
-                    <Button Style="{StaticResource ButtonStyle1}" />
-                    <Button Style="{StaticResource ButtonStyle1}" />
-                    <Button Style="{StaticResource ButtonStyle1}" />
+                    <Button
+                        Command="{Binding AppCrCommand}"
+                        Content="Создание проекта."
+                        Style="{StaticResource ButtonStyle1}" />
+                    <Button
+                        Command="{Binding DbConCommand}"
+                        Content="Подключение к БД."
+                        Style="{StaticResource ButtonStyle1}" />
+                    <Button
+                        Command="{Binding UiCommand}"
+                        Content="Проектирование UI."
+                        Style="{StaticResource ButtonStyle1}" />
+                    <Button
+                        Command="{Binding FinalCommand}"
+                        Content="Добавление функциональности."
+                        Style="{StaticResource ButtonStyle1}" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="0" Grid.Column="0">

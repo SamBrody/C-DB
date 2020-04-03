@@ -1,29 +1,44 @@
 ﻿using CSharpDB.Context;
 using CSharpDB.Model;
-using CSharpProjCore.View;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows;
 
 
 namespace CSharpProjCore.ViewModel
 {
-    public class ThemeListViewModel : BaseViewModel
+    public class TestListViewModel: BaseViewModel
     {
         DBCContext db = new DBCContext();
 
         #region Constructor
-        public ThemeListViewModel()
-        {
-            UpdateDB();            
-        }
+        public TestListViewModel()
+        {            
+            UpdateDB();
+            DateTimeV = DateTime.Today;
+        }        
         #endregion
 
         #region Commands
         RelayCommand addCommand;
         RelayCommand deleteCommand;
+        RelayCommand setValueCommand;
 
+        public RelayCommand SetValueCommand
+        {
+            get
+            {
+                return setValueCommand ??
+                  (setValueCommand = new RelayCommand((selectedItem) =>
+                  {
+                      Test test = selectedItem as Test;
+                      if (test.IDTest<=0)
+                          test.Access = DateTime.Today;
+                  }));
+            }
+        }
         // команда добавления
         public RelayCommand AddCommand
         {
@@ -33,10 +48,16 @@ namespace CSharpProjCore.ViewModel
                   (addCommand = new RelayCommand((selectedItem) =>
                   {
                       if (selectedItem == null) return;
+                      Test test = selectedItem as Test;
                       try
-                      {
-                          db.SaveChanges();
-                          MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                      {    
+                          if ((test.QuestionCount>0)& (test.Time>0)& (test.Access!=null)&(test.TestName!=null)&(test.TryCount>0))
+                          {
+                              db.SaveChanges();
+                              MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                          }
+                          else
+                              MessageBox.Show($"Заполните все поля!", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                       }
                       catch (Exception e)
                       {
@@ -55,11 +76,11 @@ namespace CSharpProjCore.ViewModel
                   {
                       if (selectedItem == null) return;
                       // получаем выделенный объект
-                      Theme theme = selectedItem as Theme;
+                      Test test = selectedItem as Test;
                       try
                       {
-                          db.Themes.Remove(theme);
-                          db.SaveChanges();
+                          db.Tests.Remove(test);
+                          db.SaveChanges();                          
                           MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                       }
                       catch (Exception e)
@@ -70,22 +91,23 @@ namespace CSharpProjCore.ViewModel
                   }));
             }
         }
+
         #endregion
 
         #region Properties
-        private ObservableCollection<Theme> themes = new ObservableCollection<Theme>();
-        public ObservableCollection<Theme> ThemeView
+        private ObservableCollection<Test> test = new ObservableCollection<Test>();
+        public ObservableCollection<Test> TestView
         {
-            get { return themes; }
+            get { return test; }
             set
             {
-                themes = value;
-                OnPropertyChanged("ThemeView");
+                test = value;
+                OnPropertyChanged("TestView");
             }
         }
 
-        private Theme selectedItem = new Theme();
-        public Theme SelectedItem
+        private Test selectedItem = new Test();
+        public Test SelectedItem
         {
             get { return selectedItem; }
             set
@@ -94,14 +116,24 @@ namespace CSharpProjCore.ViewModel
                 OnPropertyChanged("SelectedItem");
             }
         }
+        private DateTime dateTime;
+        public DateTime DateTimeV
+        {
+            get { return dateTime; }
+            set
+            {
+                dateTime = value;
+                OnPropertyChanged("DateTimeV");
+            }
+        }
         #endregion
 
         #region Methods
         private void UpdateDB()
-        {
-            db.Themes.Load();
-            ThemeView = db.Themes.Local.ToObservableCollection();
-        }        
+        {            
+            db.Tests.Load();
+            TestView = db.Tests.Local.ToObservableCollection();
+        }
         #endregion
     }
 }

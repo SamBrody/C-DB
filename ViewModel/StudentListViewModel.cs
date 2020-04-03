@@ -30,6 +30,9 @@ namespace CSharpProjCore.ViewModel
         RelayCommand searchOnLastName;
         RelayCommand searchOnFirstName;
         RelayCommand searchOnGroupName;
+        RelayCommand deleteCommand;
+        RelayCommand editCommand;
+        RelayCommand updateCommand;
 
         public RelayCommand ClearDataCommand
         {
@@ -75,9 +78,87 @@ namespace CSharpProjCore.ViewModel
                   }));
             }
         }
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ??
+                  (deleteCommand = new RelayCommand((o) =>
+                  {
+                      if(o!=null)
+                      {
+                          var studentLinq = (from st in db.UserStudents
+                                         join gr in db.Groups on st.IDGroup equals gr.IDGroup
+                                         select new
+                                         {
+                                             ID = st.IDUser,
+                                             FirstName = st.FirstName,
+                                             LastName = st.LastName,
+                                             GroupID = gr.GroupName
+                                         }).ToList();
+                          var student = studentLinq.Where(a => a.Equals(o)).ToList();
+                          int ID = student[0].ID;
+                          UserStudent userStudent = db.UserStudents.Find(ID);
+                          db.UserStudents.Remove(userStudent);
+                          db.SaveChanges();                          
+                          MessageBox.Show("Операция успешно выполнена!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                          SetDataGrid();
+                      }
+                  }));
+            }
+        }
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return editCommand ??
+                  (editCommand = new RelayCommand((o) =>
+                  {
+                  if (o != null)
+                  {
+                      var studentLinq = (from st in db.UserStudents
+                                         join gr in db.Groups on st.IDGroup equals gr.IDGroup
+                                         select new
+                                         {
+                                             ID = st.IDUser,
+                                             FirstName = st.FirstName,
+                                             LastName = st.LastName,
+                                             GroupID = gr.GroupName
+                                         }).ToList();
+                      var student = studentLinq.Where(a => a.Equals(o)).ToList();
+                      int ID = student[0].ID;
+                      UserStudent userStudent = db.UserStudents.Find(ID);
+                      EditStudent editStudent = new EditStudent(userStudent);
+                      editStudent.Show();
+                      }
+                  }));
+            }
+        }
+        public RelayCommand UpdateCommand
+        {
+            get
+            {
+                return updateCommand ??
+                  (updateCommand = new RelayCommand((o) =>
+                  {                      
+                      SetDataGrid();
+                  }));
+            }
+        }
         #endregion
 
         #region Properties
+        private Object selectedStudent;
+        public Object SelectedStudent
+        {
+            get { return selectedStudent; }
+            set
+            {
+                selectedStudent = value;
+                OnPropertyChanged("SelectedStudent");
+            }
+        }
+
         private int cbIndex;
         public int CBindex
         {

@@ -76,7 +76,8 @@
             Foreground="#FFC5C5C5"
             HorizontalScrollBarVisibility="Disabled"
             ItemsSource="{Binding Path=TestView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Validation.ErrorTemplate="{x:Null}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="BeginningEdit">
                     <i:InvokeCommandAction Command="{Binding SetValueCommand}" CommandParameter="{Binding ElementName=datagridTestList, Path=SelectedItem}" />

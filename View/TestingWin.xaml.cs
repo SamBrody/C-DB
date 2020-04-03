@@ -20,6 +20,7 @@ namespace CSharpProjCore.View
     /// </summary>
     public partial class TestingWin : Window
     {
+        bool CheckButtonClick = false;
         public TestingWin(string username, int test)
         {
             InitializeComponent();
@@ -30,19 +31,24 @@ namespace CSharpProjCore.View
 
         private void buttonCloseWindow_Click(object sender, RoutedEventArgs e)
         {
+            CheckButtonClick = true;
             MainWindow mainWindow = new MainWindow(textboxUN.Text);
             mainWindow.Show();
             this.Close();
         }
 
-        private void pgae_Closed(object sender, EventArgs e)
-        {
-            
-        }
-
         private void pgae_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void pgae_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(CheckButtonClick!=true)
+            {
+                MainWindow mainWindow = new MainWindow(textboxUN.Text);
+                mainWindow.Show();
+            }  
         }
     }
 }

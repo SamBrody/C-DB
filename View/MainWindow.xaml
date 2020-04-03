@@ -20,6 +20,12 @@
     WindowStyle="SingleBorderWindow"
     mc:Ignorable="d">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=DataContext.CheckUserPos, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ElementName=textBlockUSERNAME, Path=Text}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GridMenu" Storyboard.TargetProperty="(FrameworkElement.Width)">
@@ -89,8 +95,11 @@
                     PlacementMode="BottomAndAlignRightEdges"
                     StaysOpen="False">
                     <StackPanel Width="200">
-                        <Button Content="Настройки" />
-                        <Button Content="Помощь" />
+                        <Button
+                            Command="{Binding NavigateSettings}"
+                            Content="Настройки"
+                            IsEnabled="{Binding VisibilitySettings}" />
+                        <!--<Button Content="Помощь" />-->
                         <Button
                             x:Name="buttonPopUpChangeUser"
                             Click="buttonPopUpChangeUser_Click"
@@ -203,7 +212,10 @@
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Тестирование" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ListViewTestResultList" Height="60">
+                    <ListViewItem
+                        x:Name="ListViewTestResultList"
+                        Height="60"
+                        Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
                                 <i:InvokeCommandAction Command="{Binding NavigateTTestResultView}" />
@@ -218,7 +230,10 @@
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Результаты тестов" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ListViewStudentList" Height="60">
+                    <ListViewItem
+                        x:Name="ListViewStudentList"
+                        Height="60"
+                        Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
                                 <i:InvokeCommandAction Command="{Binding NavigateToStudentList}" />
@@ -233,7 +248,10 @@
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список студентов" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ListViewQuestionList" Height="60">
+                    <ListViewItem
+                        x:Name="ListViewQuestionList"
+                        Height="60"
+                        Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
                                 <i:InvokeCommandAction Command="{Binding NavigateToQuestionListView}" />
@@ -248,7 +266,10 @@
                             <TextBlock Style="{StaticResource TextBlockStyle1}" Text="Список вопросов" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ListViewQuestionAdd" Height="60">
+                    <ListViewItem
+                        x:Name="ListViewQuestionAdd"
+                        Height="60"
+                        Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
                                 <i:InvokeCommandAction Command="{Binding NavigateToQuestionAdd}" />

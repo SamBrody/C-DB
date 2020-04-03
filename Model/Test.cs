@@ -14,10 +14,12 @@ namespace CSharpDB.Model
     {
         private int idTest;
         private string testName;
+        private int questionCount;
+        private int time;
+        private int tryCount;
+        private DateTime access;
         private ICollection<Question> questions;
         private ICollection<TestResults> testResults;
-        private int idTheme;
-        private Theme theme;
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -39,6 +41,42 @@ namespace CSharpDB.Model
                 OnPropertyChanged("TestName");
             }
         }
+        public int QuestionCount
+        {
+            get { return questionCount; }
+            set
+            {
+                questionCount = value;
+                OnPropertyChanged("TestName");
+            }
+        }
+        public int Time
+        {
+            get { return time; }
+            set
+            {
+                time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+        public int TryCount
+        {
+            get { return tryCount; }
+            set
+            {
+                tryCount = value;
+                OnPropertyChanged("TryCount");
+            }
+        }
+        public DateTime Access
+        {
+            get { return access; }
+            set
+            {
+                access = value;
+                OnPropertyChanged("Access");
+            }
+        }
         public virtual ICollection<Question> Questions
         {
             get { return questions; }
@@ -55,25 +93,6 @@ namespace CSharpDB.Model
             {
                 testResults = value;
                 OnPropertyChanged("TestResults");
-            }
-        }
-
-        public int IDTheme
-        {
-            get { return idTheme; }
-            set
-            {
-                idTheme = value;
-                OnPropertyChanged("IDTheme");
-            }
-        }
-        public virtual Theme Theme
-        {
-            get { return theme; }
-            set
-            {
-                theme = value;
-                OnPropertyChanged("Theme");
             }
         }
 

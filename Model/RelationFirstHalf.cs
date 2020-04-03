@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class RelationFirstHalf: INotifyPropertyChanged
+    public class RelationFirstHalf: INotifyPropertyChanged, ICloneable
     {
         private int idRelationFH;
         private int idQuestion;
@@ -87,6 +87,12 @@ namespace CSharpDB.Model
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public object Clone()
+        {
+            return (RelationFirstHalf)this.MemberwiseClone();
+            //Question question = new Question { IDQuestion = this.Question.IDQuestion, TaskText = this.Question.TaskText, IDQType = this.Question.IDQType, };
         }
     }
 }

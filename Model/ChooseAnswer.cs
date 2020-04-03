@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class ChooseAnswer: INotifyPropertyChanged
+    public class ChooseAnswer: INotifyPropertyChanged, ICloneable
     {
         private int idChooseAnswer;
         private int idQuestion;
@@ -72,6 +72,12 @@ namespace CSharpDB.Model
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public object Clone()
+        {
+            return (ChooseAnswer)this.MemberwiseClone();
+            //Question question = new Question { IDQuestion = this.Question.IDQuestion, TaskText = this.Question.TaskText, IDQType = this.Question.IDQType, };
         }
     }
 }

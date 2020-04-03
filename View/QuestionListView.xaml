@@ -77,7 +77,8 @@
             IsReadOnly="True"
             ItemsSource="{Binding QuestionList}"
             SelectedIndex="{Binding SelectedIndexQ}"
-            SelectedItem="{Binding SelectedItemQ}">
+            SelectedItem="{Binding SelectedItemQ}"
+            Validation.ErrorTemplate="{x:Null}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding SetAnswerCommand}" CommandParameter="{Binding ElementName=datagridQuestionList, Path=SelectedItem}" />

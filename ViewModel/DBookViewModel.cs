@@ -18,16 +18,68 @@ namespace CSharpProjCore.ViewModel
         #endregion
 
         #region Commands    
-        RelayCommand goToTestPage;
-        
-        public RelayCommand GoToTestPage
+        RelayCommand enterTCommand;
+        RelayCommand appCrCommand;
+        RelayCommand dbConCommand;
+        RelayCommand uiCommand;
+        RelayCommand finalCommand;
+
+        public RelayCommand EnterTCommand
         {
             get
             {
-                return goToTestPage ??
-                  (goToTestPage = new RelayCommand((selectedItem) =>
+                return enterTCommand ??
+                  (enterTCommand = new RelayCommand((selectedItem) =>
                   {
-                      string path = "../../../Docs/xpstest.xps";//"F:/CSharpProjCore — копия/Docs/xpstest.xps"
+                      string path = "../../../Docs/EnterWpf.xps";
+                      OpenXps(path);
+                  }));
+            }
+        }        
+        public RelayCommand AppCrCommand
+        {
+            get
+            {
+                return appCrCommand ??
+                  (appCrCommand = new RelayCommand((selectedItem) =>
+                  {
+                      string path = "../../../Docs/AppCreate.xps";
+                      OpenXps(path);
+                  }));
+            }
+        }
+        public RelayCommand DbConCommand
+        {
+            get
+            {
+                return dbConCommand ??
+                  (dbConCommand = new RelayCommand((selectedItem) =>
+                  {
+                      string path = "../../../Docs/DBconnection.xps";
+                      OpenXps(path);
+                  }));
+            }
+        }
+        public RelayCommand UiCommand
+        {
+            get
+            {
+                return uiCommand ??
+                  (uiCommand = new RelayCommand((selectedItem) =>
+                  {
+                      string path = "../../../Docs/UserInterfaceDesign.xps";
+                      OpenXps(path);
+                  }));
+            }
+        }
+        public RelayCommand FinalCommand
+        {
+            get
+            {
+                return finalCommand ??
+                  (finalCommand = new RelayCommand((selectedItem) =>
+                  {
+                      string path = "../../../Docs/Final.Func.xps";
                       OpenXps(path);
                   }));
             }

@@ -20,6 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="FastReport">
+      <HintPath>..\FastReport.DLL</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="View\AuthorizationWin.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

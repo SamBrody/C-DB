@@ -348,6 +348,7 @@
                 Grid.ColumnSpan="2"
                 Margin="0,46,0,0">
                 <DataGrid
+                    Validation.ErrorTemplate="{x:Null}"
                     x:Name="datagridChoose"
                     Width="Auto"
                     Margin="10"
@@ -483,6 +484,7 @@
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.ColumnSpan="4">
                 <DataGrid
+                    Validation.ErrorTemplate="{x:Null}"
                     x:Name="datagridRFH"
                     Width="Auto"
                     Margin="10"

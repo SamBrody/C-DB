@@ -143,7 +143,7 @@ namespace CSharpDB.Context
                 {
                     new QuestionType { IDQuestionType=1, TextType="Выбор варианта" },
                     new QuestionType { IDQuestionType=2, TextType="Развернутый"},
-                    new QuestionType { IDQuestionType=3, TextType="Парное сопоставление" }
+                    //new QuestionType { IDQuestionType=3, TextType="Парное сопоставление" }
                 });
             modelBuilder.Entity<Theme>().HasData(
                 new Theme[]

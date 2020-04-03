@@ -1,8 +1,9 @@
-﻿using CSharpProjCore.View;
+﻿using CSharpDB.Context;
+using CSharpProjCore.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,10 +11,11 @@ namespace CSharpProjCore.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
+        DBCContext db = new DBCContext();
         #region Constructor
         public MainViewModel()
         {            
-            SetBaseValue();            
+            SetBaseValue();                         
         }       
         #endregion
 
@@ -24,9 +26,11 @@ namespace CSharpProjCore.ViewModel
         RelayCommand navigateToQuestionAdd;
         RelayCommand navigateTTestResultView;
         RelayCommand navigateToDBook;
+        RelayCommand navigateSettings;
         RelayCommand exitCommand;
         RelayCommand navigateToQuestionListView;
         RelayCommand navigateToTest;
+        RelayCommand checkUserPos;        
 
         public RelayCommand NavigateToTest
         {
@@ -99,6 +103,17 @@ namespace CSharpProjCore.ViewModel
                     }));
             }
         }
+        public RelayCommand NavigateSettings
+        {
+            get
+            {
+                return navigateSettings ??
+                    (navigateSettings = new RelayCommand((o) =>
+                    {
+                        ViewSource = new ProfileSettings(UserNameText);
+                    }));
+            }
+        }
         public RelayCommand NavigateToStudentList
         {
             get
@@ -133,6 +148,24 @@ namespace CSharpProjCore.ViewModel
                   }));
             }
         }
+        public RelayCommand CheckUserPos
+        {
+            get
+            {
+                return checkUserPos ??
+                  (checkUserPos = new RelayCommand((o) =>
+                  {
+                      UserNameText = o.ToString();
+                      var user = (from u in db.Users
+                                  where u.Login==UserNameText
+                                  select u).ToList();
+                      if (user[0].IDRole != 1) VisFun = "Hidden";
+                      else VisFun = "Visible";
+                      if (user[0].IDRole == 3) EditableSettings = "false";
+                      else EditableSettings = "true";
+                  }));
+            }
+        }
         #endregion
 
         #region Properties
@@ -144,6 +177,17 @@ namespace CSharpProjCore.ViewModel
             {
                 viewSource = value;
                 OnPropertyChanged("ViewSource");
+            }
+        }
+
+        private string editableSettings;
+        public string EditableSettings
+        {
+            get { return editableSettings; }
+            set
+            {
+                editableSettings = value;
+                OnPropertyChanged("EditableSettings");
             }
         }
 
@@ -166,6 +210,17 @@ namespace CSharpProjCore.ViewModel
             {
                 visibilityCloseMenu = value;
                 OnPropertyChanged("VisibilityCloseMenu");
+            }
+        }
+
+        private string visFun;
+        public string VisFun
+        {
+            get { return visFun; }
+            set
+            {
+                visFun = value;
+                OnPropertyChanged("VisFun");
             }
         }
 
@@ -194,7 +249,7 @@ namespace CSharpProjCore.ViewModel
 
         #region Methods
         private void SetBaseValue()
-        {
+        {            
             ViewSource = new DBook();
             SelectedTheory = true;
             VisibilityCloseMenu = "Collapsed";

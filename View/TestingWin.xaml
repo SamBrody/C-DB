@@ -15,19 +15,20 @@
     Background="#FF2C2E36"
     BorderBrush="#007acc"
     BorderThickness="1"
-    Closed="pgae_Closed"
     MouseLeftButtonDown="pgae_MouseLeftButtonDown"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
+    Closing="pgae_Closing"
     mc:Ignorable="d">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Path=DataContext.StartCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ElementName=textboxID, Path=Text}" />
+            <i:InvokeCommandAction Command="{Binding Path=DataContext.GetUserCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ElementName=textboxUN, Path=Text}" />
         </i:EventTrigger>
-        <!--<i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding Path=DataContext.ArgeeCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ElementName=textboxUN, Path=Text}" />
-        </i:EventTrigger>-->
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Path=DataContext.CloseCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding ElementName=textboxUN, Path=Text}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <Window.Resources>
@@ -108,6 +109,7 @@
             Visibility="Hidden" />
         <Grid Visibility="{Binding TestViewVis}">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -116,16 +118,24 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="0.25*" MaxHeight="80" />
             </Grid.RowDefinitions>
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="34"
+                Foreground="{Binding ColorTimer}"
+                Text="{Binding TimerDisplay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ListBox
                 x:Name="listBoxNum"
                 Grid.Row="0"
+                Grid.Column="1"
                 Grid.ColumnSpan="2"
                 FontSize="24"
                 Foreground="#FFC5C5C5"
                 ItemsSource="{Binding CountQuestion}"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                SelectedItem="{Binding SelectedItemV}">
+                SelectedItem="{Binding SelectedItemV}"
+                Validation.ErrorTemplate="{x:Null}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding IsSelectedCommand}" CommandParameter="{Binding ElementName=listBoxNum, Path=SelectedItem}" />
@@ -139,7 +149,7 @@
             </ListBox>
             <Grid
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Background="#FF2C2E36"
                 Visibility="{Binding GridInput}">
                 <StackPanel>
@@ -197,7 +207,7 @@
             </Grid>
             <Grid
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Background="#FF2C2E36"
                 Visibility="{Binding GridChoose}">
                 <Grid.ColumnDefinitions>
@@ -303,7 +313,7 @@
             </Grid>
             <Grid
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Background="#FF2C2E36"
                 Visibility="{Binding GridRelation}">
                 <Grid.ColumnDefinitions>
@@ -415,7 +425,7 @@
             </Grid>
             <StackPanel
                 Grid.Row="2"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="3"
                 Margin="0,0,0,0"
                 Background="#FF2C2E36"
                 Orientation="Vertical">

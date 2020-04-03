@@ -65,7 +65,9 @@
             Foreground="#FFC5C5C5"
             HorizontalScrollBarVisibility="Disabled"
             IsReadOnly="True"
-            ItemsSource="{Binding UserStudents}">
+            ItemsSource="{Binding UserStudents}"
+            SelectedItem="{Binding SelectedStudent}"
+            Validation.ErrorTemplate="{x:Null}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn
                     Width="0.4*"
@@ -224,6 +226,51 @@
                 BorderBrush="{x:Null}"
                 Click="buttonGroupList_Click"
                 Content="Список групп"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <!--<Button
+                x:Name="buttonReport"
+                Height="35"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Content="Создать отчёт"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />-->
+            <Button
+                x:Name="buttonEdit"
+                Height="35"
+                Margin="5,50,5,0"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Command="{Binding EditCommand}"
+                CommandParameter="{Binding ElementName=datagridStudentList, Path=SelectedItem}"
+                Content="Редактировать"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <Button
+                x:Name="buttonUpdate"
+                Height="35"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource AncestorType=Page}}"
+                Content="Обновить"
+                FontSize="18"
+                Foreground="#FFC5C5C5" />
+            <Button
+                x:Name="buttonDelete"
+                Height="35"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Stretch"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
+                Command="{Binding Path=DeleteCommand}"
+                CommandParameter="{Binding ElementName=datagridStudentList, Path=SelectedItem}"
+                Content="Удалить"
                 FontSize="18"
                 Foreground="#FFC5C5C5" />
         </StackPanel>

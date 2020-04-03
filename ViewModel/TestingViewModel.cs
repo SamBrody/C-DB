@@ -7,21 +7,26 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CSharpProjCore.Model;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace CSharpProjCore.ViewModel
 {
     public class TestingViewModel : BaseViewModel
     {
         DBCContext db = new DBCContext();
+        DispatcherTimer _timer;
+        TimeSpan _time;
 
         #region Constructor
         public TestingViewModel()
-        {            
+        {
+            CheckButtonClick = false;
             ChooseAnswersCopy = new ObservableCollection<ChooseAnswer>();
             //RelationUserAnswers = new ObservableCollection<RelationFirstHalf>();
             RealtionAnswerCopy = new ObservableCollection<RelationFirstHalf>();
             //RealtionSetAnswer = new ObservableCollection<RelationFirstHalf>();
             InputAnswersCopy = new ObservableCollection<InputAnswer>();
+            ChooseAnswers = new ObservableCollection<ChooseAnswer>();
             //SelectedRH = new RelationFirstHalf();            
             SetStartValue();
         }
@@ -36,6 +41,8 @@ namespace CSharpProjCore.ViewModel
         RelayCommand addRelationCommand;
         RelayCommand setAnswerCommand;
         RelayCommand argeeCommand;
+        RelayCommand closeCommand;
+        RelayCommand getUserCommand;
 
         public RelayCommand StartCommand
         {
@@ -43,19 +50,20 @@ namespace CSharpProjCore.ViewModel
             {
                 return startCommand ??
                   (startCommand = new RelayCommand((o) =>
-                  {
+                  {                      
                       int id = Convert.ToInt32(o);
                       IDText = o.ToString();
                       var test = (from t in db.Tests
                                   where t.IDTest == id
                                   select t).ToList();
-                      Test selItem = test[0] as Test;                      
+                      Test selItem = test[0] as Test;
+                      StartTimer(selItem);
                       SetCountQuestion(selItem);
                       SetQuestionPool(selItem);
-                      ResVis = "Collapsed";
+                      ResVis = "Collapsed";                      
                   }));
             }
-        }
+        }        
         public RelayCommand IsSelectedCommand
         {
             get
@@ -77,6 +85,7 @@ namespace CSharpProjCore.ViewModel
                       MessageBoxResult result = MessageBox.Show("Вы действительно хотите закончить тестирование?", "Завершение тестирования", MessageBoxButton.YesNo, MessageBoxImage.Question);
                       if (result == MessageBoxResult.Yes)
                       {
+                          CheckButtonClick = true;
                           FinishTest(o.ToString());
                       }
                   }));
@@ -158,9 +167,67 @@ namespace CSharpProjCore.ViewModel
                   }));
             }
         }
+        public RelayCommand CloseCommand
+        {
+            get
+            {
+                return closeCommand ??
+                  (closeCommand = new RelayCommand((o) =>
+                  {
+                      if (CheckButtonClick!=true)
+                      {
+                          FinishTest(o.ToString());
+                      }                        
+                  }));
+            }
+        }
+        public RelayCommand GetUserCommand
+        {
+            get
+            {
+                return getUserCommand ??
+                  (getUserCommand = new RelayCommand((o) =>
+                  {
+                      UserNameText = o.ToString();
+                  }));
+            }
+        }
         #endregion
 
         #region Properties  
+        private bool checkButtonClick;
+        public bool CheckButtonClick
+        {
+            get { return checkButtonClick; }
+            set
+            {
+                checkButtonClick = value;
+                OnPropertyChanged("CheckButtonClick");
+            }
+        }
+
+        private string timerDisplay;
+        public string TimerDisplay
+        {
+            get { return timerDisplay; }
+            set
+            {
+                timerDisplay = value;
+                OnPropertyChanged("TimerDisplay");
+            }
+        }
+
+        private string colorTime;
+        public string ColorTimer
+        {
+            get { return colorTime; }
+            set
+            {
+                colorTime = value;
+                OnPropertyChanged("ColorTimer");
+            }
+        }
+
         private string rateTextBlock;
         public string RateTextBlock
         {
@@ -621,9 +688,49 @@ namespace CSharpProjCore.ViewModel
         //    }
         //}
 
+        private ObservableCollection<ChooseAnswer> defAnsw = new ObservableCollection<ChooseAnswer>();
+        public ObservableCollection<ChooseAnswer> DefAnsw
+        {
+            get { return defAnsw; }
+            set
+            {
+                defAnsw = value;
+                OnPropertyChanged("DefAnsw");
+            }
+        }
+
+        private ObservableCollection<ChooseAnswer> userAnsww = new ObservableCollection<ChooseAnswer>();
+        public ObservableCollection<ChooseAnswer> UserAnsw
+        {
+            get { return userAnsww; }
+            set
+            {
+                userAnsww = value;
+                OnPropertyChanged("UserAnsw");
+            }
+        }
         #endregion
 
         #region Methods
+        private void StartTimer(Test test)
+        {
+            ColorTimer = "#FFC5C5C5";
+            _time = TimeSpan.FromSeconds(test.Time * 60);
+            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            {
+                TimerDisplay = _time.ToString("c");
+                if (_time <= TimeSpan.FromSeconds(10)) ColorTimer = "Red";
+                if (_time == TimeSpan.Zero)
+                {
+                    _timer.Stop();
+                    FinishTest(UserNameText);
+                }                    
+                _time = _time.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+
+            _timer.Start();
+        }
+
         public void Close()
         {
             this.Close();
@@ -700,7 +807,8 @@ namespace CSharpProjCore.ViewModel
             var questionLinq = (from q in db.Questions
                                 where q.IDTest == selItem.IDTest
                                 select q).ToList();
-            ObservableCollection<Question> questions = new ObservableCollection<Question>(questionLinq);
+            Random rand = new Random();            
+            ObservableCollection<Question> questions = new ObservableCollection<Question>(questionLinq.OrderBy(c=>rand.Next()).Take(questionLinq.Count));           
             QuestionsList = questions;
             SetEmptyAnswer(questions);
             //GetRandomValue();
@@ -776,14 +884,29 @@ namespace CSharpProjCore.ViewModel
             var answerLinq = (from a in db.ChooseAnswers
                               where a.IDQuestion == QuestionsList[poz].IDQuestion
                               select a).ToList();
-            ObservableCollection<ChooseAnswer> oc = new ObservableCollection<ChooseAnswer>(answerLinq);
-            ChooseAnswers = oc;
+            //ObservableCollection<ChooseAnswer> oc = new ObservableCollection<ChooseAnswer>(answerLinq);                        
+            //foreach (var item in answerLinq)
+            //{
+            //    var clone = (ChooseAnswer)item.Clone();
+            //    ChooseAnswers.Add(clone);
+            //}
+            ChooseAnswers.Clear();
             var currentAnsw = ChooseUserAnswers.Where(id => id.IDQuestion == QuestionsList[poz].IDQuestion).ToList();
-            ObservableCollection<ChooseAnswer> CurAnsw = new ObservableCollection<ChooseAnswer>(currentAnsw);
-            for (int i = 0; i < ChooseAnswers.Count; i++)
+            ObservableCollection<ChooseAnswer> CurAnsw = new ObservableCollection<ChooseAnswer>();
+            foreach (var item in currentAnsw)
             {
-                ChooseAnswers[i].IsRight = CurAnsw[i].IsRight;
+                var clone =(ChooseAnswer)item.Clone();
+                CurAnsw.Add(clone);
             }
+            foreach (var item in CurAnsw)
+            {
+                var clone = (ChooseAnswer)item.Clone();
+                ChooseAnswers.Add(clone);
+            }
+            //for (int i = 0; i < ChooseAnswers.Count; i++)
+            //{
+            //    ChooseAnswers[i].IsRight = CurAnsw[i].IsRight;
+            //}
             GridInput = "Collapsed";
             GridChoose = "Visible";
             GridRelation = "Collapsed";
@@ -863,11 +986,12 @@ namespace CSharpProjCore.ViewModel
             for (int i = 0; i < ChooseUserAnswers.Count; i++)
             {
                 if (ChooseUserAnswers[i].IDQuestion == QuestionsList[poz].IDQuestion)
-                {
-                    ChooseUserAnswers[i].IsRight = ChooseAnswers[j].IsRight;
+                {                    
+                    ChooseUserAnswers[i] = ChooseAnswers[j];
                     j++;
                 }
             }
+            var a = ChooseAnswersCopy;
         }
         private void AddUserInputAnswer(int poz)
         {
@@ -890,7 +1014,7 @@ namespace CSharpProjCore.ViewModel
         //            RelationUserAnswers[i].TextRight = SelectedRH.TextRight;
         //        }
         //    }
-        //}
+        //
 
         private void RatingScore()
         {
@@ -898,21 +1022,40 @@ namespace CSharpProjCore.ViewModel
             {
                 if (item.IDQType == 1) RateChoose(item);
                 if (item.IDQType == 2) RateInput(item);
-                //if (item.IDQType == 3) SetEmptyRelationAnswer(item);
+                //if (item.IDQType == 3) SetEmptyRelationAnswer(item);                
             }
         }
         private void RateChoose(Question item)
-        {
+        {     
+            //заменить все на копию
+            //сделать копию коллекции
             var defAnsw = ChooseAnswersCopy.Where(id => id.IDQuestion == item.IDQuestion).ToList();
-            ObservableCollection<ChooseAnswer> DefAnsw = new ObservableCollection<ChooseAnswer>(defAnsw);
+            DefAnsw.Clear();
+            foreach (var ua in defAnsw)
+            {
+                var clone = (ChooseAnswer)ua.Clone();
+                DefAnsw.Add(clone);
+            }
             var userAnsw = ChooseUserAnswers.Where(id => id.IDQuestion == item.IDQuestion).ToList();
-            ObservableCollection<ChooseAnswer> UserAnsw = new ObservableCollection<ChooseAnswer>(userAnsw);
-            int k = 0;
+            UserAnsw.Clear();
+            foreach (var ua in userAnsw)
+            {
+                var clone = (ChooseAnswer)ua.Clone();
+                UserAnsw.Add(clone);
+            }
+            int checkCoincidence = 0;
+            int TrueCount = 0;
+            int checkTrue = 0;
+            foreach (var t in DefAnsw)
+            {
+                if (t.IsRight == true) TrueCount++;
+            }
             for (int i = 0; i < defAnsw.Count; i++)
             {
-                if (DefAnsw[i].IsRight == UserAnsw[i].IsRight) k++;
+                if (DefAnsw[i].IsRight == UserAnsw[i].IsRight) checkCoincidence++;
+                if ((DefAnsw[i].IsRight == UserAnsw[i].IsRight) && (DefAnsw[i].IsRight == true) && (UserAnsw[i].IsRight == true)) checkTrue++;
             }
-            if (k == defAnsw.Count) Rating++;
+            if ((checkCoincidence == DefAnsw.Count) && (checkTrue== TrueCount)) Rating++;
         }
         private void RateInput(Question item)
         {

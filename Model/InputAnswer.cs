@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace CSharpDB.Model
 {
-    public class InputAnswer : INotifyPropertyChanged
+    public class InputAnswer : INotifyPropertyChanged, ICloneable
     {
         private int idQuestion;
         private string answerText;
         private Question question;
 
-        [Key]
+        [Key]      
         public int IDQuestion
         {
             get { return idQuestion; }
@@ -52,6 +52,12 @@ namespace CSharpDB.Model
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public object Clone()
+        {
+            return (InputAnswer)this.MemberwiseClone();
+            //Question question = new Question { IDQuestion = this.Question.IDQuestion, TaskText = this.Question.TaskText, IDQType = this.Question.IDQType, };
         }
     }
 }

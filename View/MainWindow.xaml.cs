@@ -53,6 +53,7 @@ namespace CSharpProjCore.View
         private void mainwin_Deactivated(object sender, EventArgs e)
         {
             if (IsWindowOpen<Window>("pgae")) this.Close();
+            if (IsWindowOpen<Window>("authoriz")) this.Close();
         }
     }
 }

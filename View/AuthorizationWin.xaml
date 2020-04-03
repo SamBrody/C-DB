@@ -7,6 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:local2="clr-namespace:CSharpProjCore.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="authoriz"
     Title="Авторизация"
     Width="450"
     Height="300"
@@ -24,18 +25,11 @@
         <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
             <Border
                 Name="border"
-                BorderBrush="Orange"
+                Background="#FF202022"
+                BorderBrush="{x:Null}"
                 BorderThickness="2"
                 CornerRadius="2"
                 TextBlock.Foreground="White">
-                <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStopCollection>
-                            <GradientStop Offset="0" Color="LimeGreen" />
-                            <GradientStop Offset="1" Color="LightBlue" />
-                        </GradientStopCollection>
-                    </LinearGradientBrush>
-                </Border.Background>
                 <ContentPresenter Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" />
             </Border>
             <ControlTemplate.Triggers>
@@ -137,7 +131,7 @@
             Margin="102,110,0,20"
             Click="buttonEnterGuest_Click"
             Content="Войти как Гость"
-            Style="{StaticResource ButtonStyle2}"
-            Template="{StaticResource ButtonTemplate}" />
+            Style="{StaticResource ButtonStyle2}" />
     </Grid>
 </Window>
+<!--  Template="{StaticResource ButtonTemplate}"  -->

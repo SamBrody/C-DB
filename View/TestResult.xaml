@@ -72,7 +72,8 @@
             HorizontalScrollBarVisibility="Disabled"
             IsReadOnly="True"
             ItemsSource="{Binding Path=TestsResView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Validation.ErrorTemplate="{x:Null}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="1.5*"
@@ -107,7 +108,7 @@
                 <DataGridTemplateColumn Width="1.5*" Header="Дата прохождения теста">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Path=Date, StringFormat=d, ConverterCulture=en-DE}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding Path=Date, StringFormat=f, ConverterCulture=en-DE}" TextWrapping="Wrap" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -115,7 +116,7 @@
         </DataGrid>
         <StackPanel
             Grid.Row="1"
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
             Orientation="Vertical">
             <Button
                 Width="200"
@@ -130,5 +131,63 @@
                 FontSize="18"
                 Foreground="#FFC5C5C5" />
         </StackPanel>
+        <!--<StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Orientation="Vertical">
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="28"
+                    Foreground="#FFC5C5C5"
+                    Text="С" />
+                <DatePicker
+                    x:Name="datePickerBegin"
+                    Margin="29,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="28"
+                    Foreground="#FFC5C5C5"
+                    SelectedDate="{Binding Path=DateBegin, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedDateChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=DataContext.BeginDateCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding ElementName=datePickerBegin, Path=SelectedDate}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DatePicker>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Orientation="Horizontal">
+                <TextBlock
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="28"
+                    Foreground="#FFC5C5C5"
+                    Text="По" />
+                <DatePicker
+                    x:Name="datePickerEnd"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="28"
+                    Foreground="#FFC5C5C5"
+                    SelectedDate="{Binding Path=DateEnd, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedDateChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=DataContext.EndDateCommand, RelativeSource={RelativeSource AncestorType=Page}}" CommandParameter="{Binding ElementName=datePickerEnd, Path=SelectedDate}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DatePicker>
+            </StackPanel>
+        </StackPanel>-->
     </Grid>
 </Page>

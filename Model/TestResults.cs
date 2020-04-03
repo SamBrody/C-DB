@@ -16,8 +16,9 @@ namespace CSharpDB.Model
         private DateTime date;
         private int idTest;
         private Test test;
-        private int idGrade;
-        private Grade grade;
+        //private int idGrade;
+        //private Grade grade;
+        private string grade;
         private int idUserProfile;
         private UserProfile userProfile;
 
@@ -61,16 +62,26 @@ namespace CSharpDB.Model
             }
         }
 
-        public int IDGrade
-        {
-            get { return idGrade; }
-            set
-            {
-                idGrade = value;
-                OnPropertyChanged("IDGrade");
-            }
-        }
-        public virtual Grade Grade
+        //public int IDGrade
+        //{
+        //    get { return idGrade; }
+        //    set
+        //    {
+        //        idGrade = value;
+        //        OnPropertyChanged("IDGrade");
+        //    }
+        //}
+        //public virtual Grade Grade
+        //{
+        //    get { return grade; }
+        //    set
+        //    {
+        //        grade = value;
+        //        OnPropertyChanged("Grade");
+        //    }
+        //}
+
+        public string Grade
         {
             get { return grade; }
             set

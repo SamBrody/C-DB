@@ -74,7 +74,8 @@
             Foreground="#FFC5C5C5"
             HorizontalScrollBarVisibility="Disabled"
             ItemsSource="{Binding Path=GroupsView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Validation.ErrorTemplate="{x:Null}">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn
                     Width="*"
