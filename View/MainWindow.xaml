@@ -98,7 +98,7 @@
                         <Button
                             Command="{Binding NavigateSettings}"
                             Content="Настройки"
-                            IsEnabled="{Binding VisibilitySettings}" />
+                            IsEnabled="{Binding EditableSettings}" />
                         <!--<Button Content="Помощь" />-->
                         <Button
                             x:Name="buttonPopUpChangeUser"
@@ -162,6 +162,7 @@
                 <ListView
                     x:Name="ListViewMenu"
                     Foreground="#FFC5C5C5"
+                    IsSelected="{Binding SelectedLV}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListViewItem
                         x:Name="ListViewHome"
@@ -197,7 +198,8 @@
                     <ListViewItem
                         x:Name="ListViewTest"
                         Height="60"
-                        IsEnabled="True">
+                        IsEnabled="True"
+                        IsSelected="{Binding SelectedLV}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
                                 <i:InvokeCommandAction Command="{Binding NavigateToTest}" CommandParameter="{Binding ElementName=textBlockUSERNAME, Path=Text}" />
@@ -215,6 +217,7 @@
                     <ListViewItem
                         x:Name="ListViewTestResultList"
                         Height="60"
+                        IsSelected="{Binding SelectedLV}"
                         Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
@@ -233,6 +236,7 @@
                     <ListViewItem
                         x:Name="ListViewStudentList"
                         Height="60"
+                        IsSelected="{Binding SelectedLV}"
                         Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
@@ -251,6 +255,7 @@
                     <ListViewItem
                         x:Name="ListViewQuestionList"
                         Height="60"
+                        IsSelected="{Binding SelectedLV}"
                         Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
@@ -269,6 +274,7 @@
                     <ListViewItem
                         x:Name="ListViewQuestionAdd"
                         Height="60"
+                        IsSelected="{Binding SelectedLV}"
                         Visibility="{Binding VisFun}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Selected">
